@@ -9,11 +9,14 @@ public class Tile {
 
     int minesAround;
 
+
+
     public Tile(int minesAround) {
         this.minesAround=minesAround;
     }
 
-    public void setMinesAround() {
-
+    public void setMinesAround(int minesAround) {
+        this.minesAround=minesAround;
     }
+
 }
