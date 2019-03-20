@@ -15,11 +15,15 @@ public class MinesweeperGame {
     public static final int PLAYING=0;
     public static final int WON=1;
     public static final int LOST=3;
+    int notx=0;
+    int noty=0;
 
 
     int gameStatus=PLAYING;
 
-    public MinesweeperGame() {
+    public MinesweeperGame(int notx, int noty) {
+        this.notx=notx;
+        this.noty=noty;
         init();
     }
 
@@ -52,20 +56,16 @@ public class MinesweeperGame {
         }
     }
     public void firstClickIsMine(int x, int y) {
-        for(int r=0;r<board.length;r++) {
-            for(int c=0;c<board[0].length;c++) {
 
-            }
-        }
     }
     public boolean checkSpot(int ys, int xs) {
         for(int x=0;x< spotsx.size();x++) {
-            if(xs==spotsx.get(x)) {
+            if(xs==spotsx.get(x)||xs==notx) {
                 return false;
             }
         }
         for(int x=0;x< spotsy.size();x++) {
-            if(ys==spotsy.get(x)) {
+            if(ys==spotsy.get(x)||ys==noty) {
                 return false;
             }
         }
