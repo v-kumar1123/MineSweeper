@@ -32,6 +32,7 @@ public class MinesweeperGame {
             board=new Tile[10][10];
         }
         else if(difficulty==1) {
+
             board=new Tile[15][15];
         }
         else if(difficulty==2) {
@@ -64,8 +65,8 @@ public class MinesweeperGame {
                 return false;
             }
         }
-        for(int x=0;x< spotsy.size();x++) {
-            if(ys==spotsy.get(x)||ys==noty) {
+        for(int y=0;y< spotsy.size();y++) {
+            if(ys==spotsy.get(y)||ys==noty) {
                 return false;
             }
         }
@@ -76,6 +77,7 @@ public class MinesweeperGame {
     }
 
     public void addMines() {
+        //TODO: 3/21/19: ADDMINES HAS A WHILE LOOP THAT NEVER STOPS
         int xs=0;
         int ys=0;
         if(difficulty==0) {
