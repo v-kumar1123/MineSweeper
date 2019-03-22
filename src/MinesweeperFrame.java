@@ -60,6 +60,23 @@ public class MinesweeperFrame extends JFrame implements KeyListener, MouseListen
         try {
             dead = ImageIO.read((new File("Images\\Dead.png")));
             unclicked= ImageIO.read((new File("Images\\Unclicked.png")));
+            digitEight=ImageIO.read((new File("Images\\Digit_Eight.png")));
+            empty=ImageIO.read((new File("Images\\Digit_Eight.png")));
+            digitFive=ImageIO.read((new File("Images\\Digit_Five.png")));
+            digitFour=ImageIO.read((new File("Images\\Digit_Four.png")));
+            digitHyphen=ImageIO.read(new File("Images\\Digit_Hyphen.png"));
+            digitNine=ImageIO.read(new File("Images\\Digit_Nine.png"));
+            digitOne=ImageIO.read(new File("Images\\Digit_One.png"));
+            digitSeven=ImageIO.read(new File("Images\\Digit_Seven.png"));
+            digitSix=ImageIO.read(new File("Images\\Digit_Six.png"));
+            digitThree=ImageIO.read(new File("Images\\Digit_Three.png"));
+            digitZero=ImageIO.read(new File("Images\\Digit_Zero.png"));
+            down=ImageIO.read(new File("Images\\Down.png"));
+            eight=ImageIO.read(new File("Images\\Eight.png"));
+            empty=ImageIO.read(new File("Images\\Empty.png"));
+            exploded=ImageIO.read(new File("Images\\Exploded.png"));
+            five=ImageIO.read(new File("Images\\Five.png"));
+            //flag=ImageIO.read(new File())
         } catch (IOException t) {
             t.printStackTrace();
         }catch (Exception e) {e.printStackTrace();}
