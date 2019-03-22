@@ -76,7 +76,15 @@ public class MinesweeperFrame extends JFrame implements KeyListener, MouseListen
             empty=ImageIO.read(new File("Images\\Empty.png"));
             exploded=ImageIO.read(new File("Images\\Exploded.png"));
             five=ImageIO.read(new File("Images\\Five.png"));
-            //flag=ImageIO.read(new File())
+            flag=ImageIO.read(new File("Images\\Flag.png"));
+            four=ImageIO.read(new File("Images\\Four.png"));
+            happy=ImageIO.read(new File("Images\\Happy.png"));
+            happyDown=ImageIO.read(new File("Images\\Happy_Down.png"));
+            incorrectFlag=ImageIO.read(new File("Images\\IncorrectFlag"));
+            mine=ImageIO.read(new File("Images\\Mine.png"));
+            oh=ImageIO.read(new File("Images\\Oh.png"));
+            one=ImageIO.read(new File("Images\\One.png"));
+            question=ImageIO.read(new File("Images\\Question.png"));
         } catch (IOException t) {
             t.printStackTrace();
         }catch (Exception e) {e.printStackTrace();}
