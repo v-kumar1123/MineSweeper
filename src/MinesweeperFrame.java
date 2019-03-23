@@ -80,11 +80,17 @@ public class MinesweeperFrame extends JFrame implements KeyListener, MouseListen
             four=ImageIO.read(new File("Images\\Four.png"));
             happy=ImageIO.read(new File("Images\\Happy.png"));
             happyDown=ImageIO.read(new File("Images\\Happy_Down.png"));
-            incorrectFlag=ImageIO.read(new File("Images\\IncorrectFlag"));
+            incorrectFlag=ImageIO.read(new File("Images\\IncorrectFlag.png"));
             mine=ImageIO.read(new File("Images\\Mine.png"));
             oh=ImageIO.read(new File("Images\\Oh.png"));
             one=ImageIO.read(new File("Images\\One.png"));
             question=ImageIO.read(new File("Images\\Question.png"));
+            seven=ImageIO.read(new File("Images\\Seven.png"));
+            shades=ImageIO.read(new File("Images\\Shades.png"));
+            six=ImageIO.read(new File("Images\\Six.png"));
+            three=ImageIO.read(new File("Images\\Three.png"));
+            two=ImageIO.read(new File("Images\\Two.png"));
+
         } catch (IOException t) {
             t.printStackTrace();
         }catch (Exception e) {e.printStackTrace();}
@@ -92,18 +98,73 @@ public class MinesweeperFrame extends JFrame implements KeyListener, MouseListen
     }
 
     public void paint(Graphics g) {
-        g.setColor(Color.GRAY);
-        g.fillRect(0,0,getWidth(),getHeight());
 
         if(!firstClick) {
+
+            g.setColor(Color.GRAY);
+            g.fillRect(0,0,getWidth(),getHeight());
             paintFirstBlocks(g);
         }
+        else {
+            for(int x=0;x<game.getBoard().length;x++) {
+                for(int y=0;y<game.getBoard()[0].length;y++) {
+                    if(game.getBoard()[x][y].isRevealed()) {
+                        if(game.getBoard()[x][y].getMinesAround()==0) {
+                            emptyClicked();
+                            g.drawImage(empty,(x*16)+50,(y*16)+50,null);
+                        }
+                        if(game.getBoard()[x][y].getMinesAround()==1) {
+                            g.drawImage(one,(x*16)+50,(y*16)+50,null);
+                        }
+                        if(game.getBoard()[x][y].getMinesAround()==2) {
+                            g.drawImage(two,(x*16)+50,(y*16)+50,null);
+                        }
+                        if(game.getBoard()[x][y].getMinesAround()==3) {
+                            g.drawImage(three,(x*16)+50,(y*16)+50,null);
+                        }
+                        if(game.getBoard()[x][y].getMinesAround()==4) {
+                            g.drawImage(four,(x*16)+50,(y*16)+50,null);
+                        }
+                        if(game.getBoard()[x][y].getMinesAround()==5) {
+                            g.drawImage(five,(x*16)+50,(y*16)+50,null);
+                        }
+                        if(game.getBoard()[x][y].getMinesAround()==6) {
+                            g.drawImage(six,(x*16)+50,(y*16)+50,null);
+                        }
+                        if(game.getBoard()[x][y].getMinesAround()==7) {
+                            g.drawImage(seven,(x*16)+50,(y*16)+50,null);
+                        }
+
+                        if(game.getBoard()[x][y].getMinesAround()==8) {
+                            g.drawImage(eight,(x*16)+50,(y*16)+50,null);
+                        }
+                        if(game.getBoard()[x][y].isMine) {
+                            mineHasBeenClicked();
+                            g.drawImage(mine,(x*16)+50,(y*16)+50,null);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public void mineHasBeenClicked() {
+        for(int x=0;x<game.getBoard().length;x++) {
+            for(int y=0;y<game.getBoard()[0].length;y++) {
+                if(game.getBoard()[x][y].isMine) {
+                    game.getBoard()[x][y].setRevealed(true);
+                    repaint();
+                }
+            }
+        }
+    }
+    public void emptyClicked() {
+
     }
 
     public void paintFirstBlocks(Graphics g) {
         for(int r=0;r<10;r++) {
             for(int c=0;c<10;c++) {
-                g.drawImage(unclicked,r*16+50,c*16+50,null);
+                g.drawImage(unclicked,(r*16)+50,(c*16)+50,null);
             }
         }
     }
@@ -131,10 +192,18 @@ public class MinesweeperFrame extends JFrame implements KeyListener, MouseListen
     @Override
     public void mousePressed(MouseEvent e) {
             //TODO: ADDMINES IS RECURSIVE AND IS INFINITE. STOP IT.
-            game = new MinesweeperGame(e.getX() / 16-50, e.getY() / 16-50);
+        if(!firstClick) {
+            game = new MinesweeperGame((e.getX()-50) / 16, (e.getY()-50) / 16);
             System.out.println("Not X: " + game.notx + " Not Y: " + game.noty);
             System.out.println("Hello I am not the recursive one");
-            firstClick=true;
+
+            game.getBoard()[(e.getX()-50) / 16][ (e.getY()-50) / 16].setRevealed(true);
+            firstClick = true;
+        }
+        else {
+            game.getBoard()[(e.getX()-50) / 16][ (e.getY()-50) / 16].setRevealed(true);
+            repaint();
+        }
             repaint();
             return;
     }

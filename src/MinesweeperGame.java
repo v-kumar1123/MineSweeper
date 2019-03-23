@@ -63,6 +63,11 @@ public class MinesweeperGame {
     public void firstClickIsMine(int x, int y) {
 
     }
+
+    public Tile[][] getBoard() {
+        return board;
+    }
+
     public boolean checkSpot(int ys, int xs) {
         for(int x=0;x< spotsx.size();x++) {
             if(xs==spotsx.get(x)/*xs==notx*/) {
@@ -171,6 +176,8 @@ public class MinesweeperGame {
             board[x][y].setMinesAround(board[x][y].getMinesAround()+1);
         }
     }
+
+
 
     public void playGame() {
 
