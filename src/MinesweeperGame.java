@@ -105,14 +105,24 @@ public class MinesweeperGame {
         ys=(int)(Math.random()*board[0].length);
         if(difficulty==0) {
             for(int x=0;x<15;x++) {
+                System.out.println("\t\t\t\t\t AM I REALLY HERE????");
                 while(!checkSpot(ys,xs)) {
 
                     System.out.println("Hello thetre12");
+
+
+
                     xs=(int)(Math.random()*board.length);
                     ys=(int)(Math.random()*board[0].length);
                 }
+                System.out.println(x);
+
 
                 board[xs][ys].setMine(true);
+
+
+                xs=(int)(Math.random()*board.length);
+                ys=(int)(Math.random()*board[0].length);
             }
 
             spotsx.clear();

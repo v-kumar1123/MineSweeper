@@ -15,6 +15,7 @@ import java.util.*;
 public class MinesweeperFrame extends JFrame implements KeyListener, MouseListener {
 
     BufferedImage dead;
+    boolean gameOver=false;
     boolean firstClick=false;
     BufferedImage oh;
     BufferedImage down;
@@ -110,7 +111,7 @@ public class MinesweeperFrame extends JFrame implements KeyListener, MouseListen
                 for(int y=0;y<game.getBoard()[0].length;y++) {
                     if(game.getBoard()[x][y].isRevealed()) {
                         if(game.getBoard()[x][y].getMinesAround()==0) {
-                            emptyClicked();
+                            emptyClicked(x,y);
                             g.drawImage(empty,(x*16)+50,(y*16)+50,null);
                         }
                         if(game.getBoard()[x][y].getMinesAround()==1) {
@@ -140,7 +141,15 @@ public class MinesweeperFrame extends JFrame implements KeyListener, MouseListen
                         }
                         if(game.getBoard()[x][y].isMine) {
                             mineHasBeenClicked();
-                            g.drawImage(mine,(x*16)+50,(y*16)+50,null);
+                            for(int r=0;r<game.getBoard().length;r++) {
+                                for(int c=0;c<game.getBoard()[0].length;c++) {
+                                    if(game.getBoard()[r][c].isMine) {
+                                        g.drawImage(mine,(r*16)+50,(c*16)+50,null);
+                                    }
+                                }
+                            }
+                            g.drawImage(exploded,(x*16)+50,(y*16)+50,null);
+                            gameOver=true;
                         }
                     }
                 }
@@ -151,13 +160,46 @@ public class MinesweeperFrame extends JFrame implements KeyListener, MouseListen
         for(int x=0;x<game.getBoard().length;x++) {
             for(int y=0;y<game.getBoard()[0].length;y++) {
                 if(game.getBoard()[x][y].isMine) {
+                    System.out.println("I FOUND A MINE!");
                     game.getBoard()[x][y].setRevealed(true);
-                    repaint();
                 }
             }
         }
     }
-    public void emptyClicked() {
+    public void emptyClicked(int x, int y) {
+        if(x>0&&game.getBoard()[x-1][y].getMinesAround()==0) {
+            game.getBoard()[x-1][y].setRevealed(true);
+            emptyClicked(x-1,y);
+        }
+        if(x<game.getBoard().length-1&&game.getBoard()[x+1][y].getMinesAround()==0) {
+            game.getBoard()[x+1][y].setRevealed(true);
+            emptyClicked(x+1,y);
+        }
+        if(y>0&&game.getBoard()[x][y-1].getMinesAround()==0) {
+            game.getBoard()[x][y-1].setRevealed(true);
+            emptyClicked(x,y-1);
+        }
+        if(y<game.getBoard()[0].length-1&&game.getBoard()[x][y+1].getMinesAround()==0) {
+            game.getBoard()[x][y+1].setRevealed(true);
+            emptyClicked(x,y+1);
+        }
+        if(x<game.getBoard().length-1&&y<game.getBoard()[0].length-1&&game.getBoard()[x+1][y+1].getMinesAround()==0) {
+            game.getBoard()[x+1][y+1].setRevealed(true);
+            emptyClicked(x+1,y+1);
+        }
+        if(x>0&&y<game.getBoard()[0].length-1&&game.getBoard()[x-1][y+1].getMinesAround()==0) {
+            game.getBoard()[x-1][y+1].setRevealed(true);
+            emptyClicked(x-1,y+1);
+        }
+        if(x>0&&y>0&&game.getBoard()[x-1][y-1].getMinesAround()==0) {
+            game.getBoard()[x-1][y-1].setRevealed(true);
+            emptyClicked(x-1,y-1);
+        }
+        if(game.getBoard()[x+1][y-1].getMinesAround()==0) {
+            game.getBoard()[x+1][y-1].setRevealed(true);
+            emptyClicked(x+1,y-1);
+        }
+
 
     }
 
@@ -176,7 +218,17 @@ public class MinesweeperFrame extends JFrame implements KeyListener, MouseListen
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        int mines=0;
+        if(e.getKeyChar()=='k') {
+            for(int x=0;x<game.getBoard().length;x++) {
+                for(int y=0;y<game.getBoard()[0].length;y++) {
+                    if(game.getBoard()[x][y].isMine) {
+                        mines++;
+                    }
+                }
+            }
+            System.out.println("\t\t\t\t\t\t\t\t\t\t\tNumber of Mines: "+mines);
+        }
     }
 
     @Override
@@ -200,9 +252,12 @@ public class MinesweeperFrame extends JFrame implements KeyListener, MouseListen
             game.getBoard()[(e.getX()-50) / 16][ (e.getY()-50) / 16].setRevealed(true);
             firstClick = true;
         }
-        else {
+        else if(!gameOver){
             game.getBoard()[(e.getX()-50) / 16][ (e.getY()-50) / 16].setRevealed(true);
             repaint();
+        }
+        else {
+
         }
             repaint();
             return;
