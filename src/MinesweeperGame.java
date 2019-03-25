@@ -68,9 +68,9 @@ public class MinesweeperGame {
         return board;
     }
 
-    public boolean checkSpot(int ys, int xs) {
+    public boolean checkSpotIsGood(int ys, int xs) {
         for(int x=0;x< spotsx.size();x++) {
-            if(xs==spotsx.get(x)/*xs==notx*/) {
+            if(xs==spotsx.get(x)||xs==notx) {
 
                 //System.out.println("Hello thetre888");
                 return false;
@@ -81,8 +81,7 @@ public class MinesweeperGame {
             }
         }
         for(int y=0;y< spotsy.size();y++) {
-            if(ys==spotsy.get(y)/*ys==noty*/) {
-
+            if(ys==spotsy.get(y)||ys==noty) {
                 //System.out.println("Hello thetre77");
                 return false;
             }
@@ -106,19 +105,20 @@ public class MinesweeperGame {
         if(difficulty==0) {
             for(int x=0;x<15;x++) {
                 System.out.println("\t\t\t\t\t AM I REALLY HERE????");
-                while(!checkSpot(ys,xs)) {
-
+                while(!checkSpotIsGood(ys,xs)) {
                     System.out.println("Hello thetre12");
-
-
 
                     xs=(int)(Math.random()*board.length);
                     ys=(int)(Math.random()*board[0].length);
                 }
                 System.out.println(x);
 
-
-                board[xs][ys].setMine(true);
+                if(xs!=notx||ys!=noty) {
+                    board[xs][ys].setMine(true);
+                }
+                else {
+                    x--;
+                }
 
 
                 xs=(int)(Math.random()*board.length);
@@ -130,7 +130,7 @@ public class MinesweeperGame {
         }
         else if(difficulty==1) {
             for(int x=0;x<40;x++) {
-                while(!checkSpot(ys,xs)) {
+                while(!checkSpotIsGood(ys,xs)) {
 
                     System.out.println("Hello thetre234");
                     xs=(int)(Math.random()*board.length);
@@ -146,7 +146,7 @@ public class MinesweeperGame {
         }
         else if(difficulty==2) {
             for(int x=0;x<100;x++) {
-                while(!checkSpot(ys,xs)) {
+                while(!checkSpotIsGood(ys,xs)) {
 
                     System.out.println("Hello thetre34");
                     xs=(int)(Math.random()*board.length);
