@@ -13,7 +13,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
     BufferedImage dead;
     boolean gameOver=false;
-    boolean firstClick=false;
+    boolean firstClicked=false;
     BufferedImage oh;
     BufferedImage down;
     BufferedImage happy;
@@ -46,8 +46,15 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     BufferedImage incorrectFlag;
     BufferedImage exploded;
     MinesweeperGame game;
+    int blockNo=10;
 
-    public MineSweeperPanel() {
+    public void setBlockNo(int blockNo) {
+        this.blockNo = blockNo;
+    }
+
+    public MineSweeperPanel(int blockNo) {
+        this.blockNo=blockNo;
+
         try {
             dead = ImageIO.read((new File("Images\\Dead.png")));
             unclicked= ImageIO.read((new File("Images\\Unclicked.png")));
@@ -96,11 +103,10 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
 
     public void paint(Graphics g) {
-        if(!firstClick) {
-
+        if(!firstClicked) {
             g.setColor(Color.GRAY);
             g.fillRect(0,0,getWidth(),getHeight());
-            paintFirstBlocks(g);
+            paintFirstBlocks(g,10);
         }
         else {
             for(int x=0;x<game.getBoard().length;x++) {
@@ -152,6 +158,17 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                         }
                         if(gameOver) {
                             break;
+                        }
+                    }
+                    else {
+                        if(game.getBoard()[x][y].getStatus()==Tile.BLANK) {
+                            g.drawImage(unclicked, (x * 16) + 50, (y * 16) + 50, null);
+                        }
+                        else if(game.getBoard()[x][y].getStatus()==Tile.FLAGGED) {
+                            g.drawImage(flag, (x * 16) + 50, (y * 16) + 50, null);
+                        }
+                        else if(game.getBoard()[x][y].getStatus()==Tile.QUESTIONED) {
+                            g.drawImage(question, (x * 16) + 50, (y * 16) + 50, null);
                         }
                     }
 
@@ -229,10 +246,13 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         return;
     }
 
-    public void paintFirstBlocks(Graphics g) {
-        for(int r=0;r<10;r++) {
-            for(int c=0;c<10;c++) {
+    public void paintFirstBlocks(Graphics g, int difficulty) {
+        g.setColor(Color.GRAY);
+        g.fillRect(0,0,getWidth(),getHeight());
+        for(int r=0;r<blockNo;r++) {
+            for(int c=0;c<blockNo;c++) {
                 g.drawImage(unclicked,(r*16)+50,(c*16)+50,null);
+                System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t I hacv prawkf");
             }
         }
     }
@@ -269,29 +289,48 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
     @Override
     public void mousePressed(MouseEvent e) {
-        //TODO: ADDMINES IS RECURSIVE AND IS INFINITE. STOP IT.
-        if(!firstClick) {
-            game = new MinesweeperGame((e.getX()-50) / 16, (e.getY()-50) / 16);
-            System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\tNot X: " + game.notx + " Not Y: " + game.noty);
-            System.out.println("Hello I am not the recursive one");
+        if(e.getButton()==MouseEvent.BUTTON1) {
+            if(game!=null) {
 
-            game.getBoard()[(e.getX()-50) / 16][ (e.getY()-50) / 16].setRevealed(true);
-            firstClick = true;
+            }
         }
-        else if(!gameOver){
-            game.getBoard()[(e.getX()-50) / 16][ (e.getY()-50) / 16].setRevealed(true);
-            repaint();
-        }
-        else {
-
-        }
-        repaint();
-        return;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if(e.getButton()==MouseEvent.BUTTON1) {
+            System.out.println("HEY I AM BUTTON 1");
+            if (!firstClicked) {
+                game = new MinesweeperGame((e.getX() - 50) / 16, (e.getY() - 50) / 16);
+                System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\tNot X: " + game.notx + " Not Y: " + game.noty);
+                System.out.println("Hello I am not the recursive one");
 
+                game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].setRevealed(true);
+                firstClicked = true;
+            } else if (!gameOver) {
+                game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].setRevealed(true);
+                repaint();
+            } else {
+
+            }
+            repaint();
+        }
+        else if (e.getButton()==MouseEvent.BUTTON3) {
+            System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\tHELLO I BANANA");
+            if(firstClicked&&!game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].isRevealed()) {
+                if(game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].getStatus()==game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].BLANK) {
+                    game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].setStatus(game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].FLAGGED);
+                }
+                else if(game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].getStatus()==game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].FLAGGED) {
+                    game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].setStatus(game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].QUESTIONED);
+                }
+                else {
+                    game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].setStatus(game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].BLANK);
+                }
+            }
+            repaint();
+        }
+        return;
     }
 
     @Override

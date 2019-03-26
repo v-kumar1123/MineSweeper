@@ -8,6 +8,9 @@ public class MinesweeperGame {
 
     ArrayList<Integer> spotsy=new ArrayList<Integer>();
 
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
 
     public static final int EASY=0;
     public static final int MEDIUM=1;
