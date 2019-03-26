@@ -13,6 +13,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
     BufferedImage dead;
     boolean gameOver=false;
+    Graphics graphics;
     boolean firstClicked=false;
     BufferedImage oh;
     BufferedImage down;
@@ -46,6 +47,9 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     BufferedImage incorrectFlag;
     BufferedImage exploded;
     MinesweeperGame game;
+    boolean hovering=false;
+    int emptyX;
+    int emptyY;
     int blockNo=10;
 
     public void setBlockNo(int blockNo) {
@@ -93,8 +97,10 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
             t.printStackTrace();
         }catch (Exception e) {e.printStackTrace();}
 
-        addKeyListener(this);
         addMouseListener(this);
+
+        addKeyListener(this);
+
     }
 
 
@@ -103,6 +109,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
 
     public void paint(Graphics g) {
+        graphics=g;
         if(!firstClicked) {
             g.setColor(Color.GRAY);
             g.fillRect(0,0,getWidth(),getHeight());
@@ -151,7 +158,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                                 }
                             }
                             g.drawImage(exploded,(x*16)+50,(y*16)+50,null);
-                            System.out.println("\t\t\t\t\t\t\t\t"+x+" x and y"+y);
                             gameOver=true;
 
                             break;
@@ -180,6 +186,9 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                 if(gameOver) {
                     break;
                 }
+            }
+            if(hovering) {
+                g.drawImage(empty, emptyX,emptyY,null);
             }
         }
     }
@@ -246,13 +255,13 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         return;
     }
 
+
     public void paintFirstBlocks(Graphics g, int difficulty) {
         g.setColor(Color.GRAY);
         g.fillRect(0,0,getWidth(),getHeight());
         for(int r=0;r<blockNo;r++) {
             for(int c=0;c<blockNo;c++) {
                 g.drawImage(unclicked,(r*16)+50,(c*16)+50,null);
-                System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t I hacv prawkf");
             }
         }
     }
@@ -265,7 +274,9 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     @Override
     public void keyPressed(KeyEvent e) {
         int mines=0;
-        if(e.getKeyChar()=='k') {
+        System.out.println("I AM LEGIT DONE I SWEAR TO GOD");
+        if(e.getKeyChar()=='k'||e.getKeyChar()=='q') {
+            System.out.println("\t\t\t\t\t\t\t\t\t\t\tHELLO I AM SAAAD");
             for(int x=0;x<game.getBoard().length;x++) {
                 for(int y=0;y<game.getBoard()[0].length;y++) {
                     if(game.getBoard()[x][y].isMine) {
@@ -290,8 +301,12 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     @Override
     public void mousePressed(MouseEvent e) {
         if(e.getButton()==MouseEvent.BUTTON1) {
-            if(game!=null) {
 
+            //System.out.println("\t\t\t\t\t\t\t\t\t\t\tHELLO AGAIN");
+            if(game!=null) {
+                System.out.println("\t\t\t\t\t\t\t\t\t\t\tHELLO AGAIN");
+                emptyY=(e.getY() - 50 / 16)*16+50;
+                emptyX=(e.getX() - 50 / 16)*16+50;
             }
         }
     }
@@ -299,11 +314,8 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     @Override
     public void mouseReleased(MouseEvent e) {
         if(e.getButton()==MouseEvent.BUTTON1) {
-            System.out.println("HEY I AM BUTTON 1");
             if (!firstClicked) {
                 game = new MinesweeperGame((e.getX() - 50) / 16, (e.getY() - 50) / 16);
-                System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\tNot X: " + game.notx + " Not Y: " + game.noty);
-                System.out.println("Hello I am not the recursive one");
 
                 game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].setRevealed(true);
                 firstClicked = true;
@@ -316,7 +328,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
             repaint();
         }
         else if (e.getButton()==MouseEvent.BUTTON3) {
-            System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\tHELLO I BANANA");
             if(firstClicked&&!game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].isRevealed()) {
                 if(game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].getStatus()==game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].BLANK) {
                     game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].setStatus(game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].FLAGGED);

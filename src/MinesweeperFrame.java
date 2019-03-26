@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.*;
 
 
-public class MinesweeperFrame extends JFrame implements Runnable {
+public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
     public static final int EASY=0;
     public static final int MEDIUM=1;
     public static final int HARD=2;
@@ -42,11 +42,15 @@ public class MinesweeperFrame extends JFrame implements Runnable {
         panel.setBounds(0,0,getWidth(),getHeight());
         add(panel);
 
+        panel.addNotify();
+        panel.requestFocus();
+
         Thread t=new Thread(this);
         t.start();
 
+        addKeyListener(this);
 
-        setUndecorated(false);
+        setUndecorated(true);
         /*TODO 3/25/19: When player starts game, playerWants is zero. If the process operation shows
         *TODO: that he wants a easy board, change playerWants to the correct value corresponding
         * TODO: Then, when he makes his first click, use playerWants to choose a difficulty in game
@@ -96,5 +100,20 @@ public class MinesweeperFrame extends JFrame implements Runnable {
                 }
             }
         }*/
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }

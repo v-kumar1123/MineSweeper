@@ -45,7 +45,6 @@ public class MinesweeperGame {
         for(int x=0;x<board.length;x++) {
             for (int y=0;y<board[0].length;y++) {
 
-                System.out.println("Hello thetr45624365e");
                 board[x][y]=new Tile(0);
                 board[x][y].setRevealed(false);
             }
@@ -57,7 +56,6 @@ public class MinesweeperGame {
             for(int y=0;y<board[0].length;y++) {
                 if(!board[x][y].isMine()) {
 
-                    System.out.println("Hello thetr00e");
                     setTileValue(x, y);
                 }
             }
@@ -74,27 +72,18 @@ public class MinesweeperGame {
     public boolean checkSpotIsGood(int ys, int xs) {
         for(int x=0;x< spotsx.size();x++) {
             if(xs==spotsx.get(x)||xs==notx) {
-
                 //System.out.println("Hello thetre888");
                 return false;
             }
-            else {
-                spotsx.add(xs);
-                spotsy.add(ys);
-            }
         }
+        spotsx.add(xs);
         for(int y=0;y< spotsy.size();y++) {
             if(ys==spotsy.get(y)||ys==noty) {
                 //System.out.println("Hello thetre77");
                 return false;
             }
-            else {
-                spotsx.add(xs);
-                spotsy.add(ys);
-            }
         }
-
-
+        spotsy.add(ys);
         return true;
     }
 
@@ -106,15 +95,11 @@ public class MinesweeperGame {
         xs=(int)(Math.random()*board.length);
         ys=(int)(Math.random()*board[0].length);
         if(difficulty==0) {
-            for(int x=0;x<15;x++) {
-                System.out.println("\t\t\t\t\t AM I REALLY HERE????");
+            for(int x=0;x<97;x++) {
                 while(!checkSpotIsGood(ys,xs)) {
-                    System.out.println("Hello thetre12");
-
                     xs=(int)(Math.random()*board.length);
                     ys=(int)(Math.random()*board[0].length);
                 }
-                System.out.println(x);
 
                 if(xs!=notx||ys!=noty) {
                     board[xs][ys].setMine(true);
@@ -134,8 +119,6 @@ public class MinesweeperGame {
         else if(difficulty==1) {
             for(int x=0;x<40;x++) {
                 while(!checkSpotIsGood(ys,xs)) {
-
-                    System.out.println("Hello thetre234");
                     xs=(int)(Math.random()*board.length);
                     ys=(int)(Math.random()*board[0].length);
                 }
@@ -151,7 +134,6 @@ public class MinesweeperGame {
             for(int x=0;x<100;x++) {
                 while(!checkSpotIsGood(ys,xs)) {
 
-                    System.out.println("Hello thetre34");
                     xs=(int)(Math.random()*board.length);
                     ys=(int)(Math.random()*board[0].length);
                 }
