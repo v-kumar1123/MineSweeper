@@ -5,6 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/MinesweeperFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/MinesweeperFrame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/MinesweeperGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/MinesweeperGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MineSweeperPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MineSweeperPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MinesweeperGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinesweeperGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tile.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,14 +17,38 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/MineSweeper$MainFile.ic" NAME="MainFile Coverage Results" MODIFIED="1553522212848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/MineSweeper$MainFile.ic" NAME="MainFile Coverage Results" MODIFIED="1553633028855" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="262935352">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="1418" />
+          <entry key="txt" value="197" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="1418" />
+          <entry key="PLAIN_TEXT" value="197" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MainFile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
+            <state relative-caret-position="54">
               <caret line="2" selection-start-line="2" selection-end-line="2" />
               <folding>
                 <element signature="e#105#106#0" expanded="true" />
@@ -33,20 +60,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MinesweeperFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="38" column="32" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Downloads/DungeonFrame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="54" column="61" selection-start-line="54" selection-start-column="50" selection-end-line="54" selection-end-column="61" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="155">
+              <caret line="41" column="52" selection-start-line="41" selection-start-column="52" selection-end-line="41" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -54,12 +69,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MineSweeperPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="293" selection-start-line="293" selection-end-line="293" />
+            <state relative-caret-position="430">
+              <caret line="369" column="9" selection-start-line="369" selection-start-column="9" selection-end-line="369" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1383#1384#0" expanded="true" />
-                <element signature="e#1421#1422#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -68,12 +81,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MinesweeperGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
-              <folding>
-                <element signature="e#263#264#0" expanded="true" />
-                <element signature="e#307#308#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="140">
+              <caret line="94" column="28" selection-start-line="94" selection-start-column="28" selection-end-line="94" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -81,12 +90,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Tile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="624">
-              <caret line="36" column="39" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
+            <state relative-caret-position="297">
+              <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
               <folding>
+                <element signature="e#648#649#0" expanded="true" />
                 <element signature="e#684#685#0" expanded="true" />
                 <element signature="e#857#858#0" expanded="true" />
                 <element signature="e#890#891#0" expanded="true" />
+                <element signature="e#989#990#0" expanded="true" />
+                <element signature="e#1018#1019#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -113,6 +125,9 @@
       <find>firstClick</find>
       <find>I hacv</find>
       <find>updatesDone</find>
+      <find>System</find>
+      <find>MinesW</find>
+      <find>digitTwo</find>
     </findStrings>
     <replaceStrings>
       <replace>firstClicked</replace>
@@ -124,9 +139,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/MinesweeperFrame.java" />
         <option value="$PROJECT_DIR$/src/Tile.java" />
         <option value="$PROJECT_DIR$/src/MinesweeperGame.java" />
-        <option value="$PROJECT_DIR$/src/MinesweeperFrame.java" />
         <option value="$PROJECT_DIR$/src/MineSweeperPanel.java" />
       </list>
     </option>
@@ -244,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1553565823761</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Flags are showing up. Look at rubric on your phone to find out what you're missing. You need to put faces, sort scores, put menus, have the thread that does time. YOU CAN DO IT!!">
+      <created>1553609477356</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1553609477356</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -259,8 +281,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32827735" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3275488" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -280,6 +302,9 @@
       <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.32995737" />
     </layout>
   </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init Commit" />
     <MESSAGE value="Init Commit 75" />
@@ -288,7 +313,8 @@
     <MESSAGE value="Fixed the recursiveness, but still need to figure out x and y position. Also, why is the board disappearing after every click? You should be almost done after the weekend." />
     <MESSAGE value="Mine is not showing everywhere. Fix it." />
     <MESSAGE value="Figure out having the boxes be clicked as the cursor moves, also, flags are good. Find out how to use threads and stuff, also, put smiley button and changes, then add Menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="Figure out having the boxes be clicked as the cursor moves, also, flags are good. Find out how to use threads and stuff, also, put smiley button and changes, then add Menu" />
+    <MESSAGE value="Flags are showing up. Look at rubric on your phone to find out what you're missing. You need to put faces, sort scores, put menus, have the thread that does time. YOU CAN DO IT!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Flags are showing up. Look at rubric on your phone to find out what you're missing. You need to put faces, sort scores, put menus, have the thread that does time. YOU CAN DO IT!!" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_15Puzzle.zip/15Puzzle/src/Board.java" />
@@ -296,9 +322,10 @@
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_15Puzzle.zip/15Puzzle/src/PuzzleFrame.java" />
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_15Puzzle.zip/15Puzzle/src/Piece.java" />
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_15Puzzle.zip/15Puzzle/src/SoundClipTest.java" />
+    <entry file="file://$USER_HOME$/Downloads/DungeonFrame.java" />
     <entry file="file://$PROJECT_DIR$/src/MainFile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
+        <state relative-caret-position="54">
           <caret line="2" selection-start-line="2" selection-end-line="2" />
           <folding>
             <element signature="e#105#106#0" expanded="true" />
@@ -306,54 +333,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Downloads/DungeonFrame.java">
+    <entry file="file://$PROJECT_DIR$/src/MinesweeperFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="54" column="61" selection-start-line="54" selection-start-column="50" selection-end-line="54" selection-end-column="61" />
+        <state relative-caret-position="155">
+          <caret line="41" column="52" selection-start-line="41" selection-start-column="52" selection-end-line="41" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Tile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#648#649#0" expanded="true" />
+            <element signature="e#684#685#0" expanded="true" />
+            <element signature="e#857#858#0" expanded="true" />
+            <element signature="e#890#891#0" expanded="true" />
+            <element signature="e#989#990#0" expanded="true" />
+            <element signature="e#1018#1019#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MinesweeperGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
-          <folding>
-            <element signature="e#263#264#0" expanded="true" />
-            <element signature="e#307#308#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Tile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="624">
-          <caret line="36" column="39" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
-          <folding>
-            <element signature="e#684#685#0" expanded="true" />
-            <element signature="e#857#858#0" expanded="true" />
-            <element signature="e#890#891#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MinesweeperFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="38" column="32" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
+        <state relative-caret-position="140">
+          <caret line="94" column="28" selection-start-line="94" selection-start-column="28" selection-end-line="94" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MineSweeperPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="293" selection-start-line="293" selection-end-line="293" />
+        <state relative-caret-position="430">
+          <caret line="369" column="9" selection-start-line="369" selection-start-column="9" selection-end-line="369" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1383#1384#0" expanded="true" />
-            <element signature="e#1421#1422#0" expanded="true" />
           </folding>
         </state>
       </provider>

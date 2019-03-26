@@ -70,20 +70,17 @@ public class MinesweeperGame {
     }
 
     public boolean checkSpotIsGood(int ys, int xs) {
-        for(int x=0;x< spotsx.size();x++) {
-            if(xs==spotsx.get(x)||xs==notx) {
-                //System.out.println("Hello thetre888");
+        /*for(int x=0;x< spotsx.size();x++) {
+            if((xs==spotsx.get(x)||xs==notx)||(ys==spotsy.get(x)||ys==noty)) {
                 return false;
             }
         }
         spotsx.add(xs);
-        for(int y=0;y< spotsy.size();y++) {
-            if(ys==spotsy.get(y)||ys==noty) {
-                //System.out.println("Hello thetre77");
-                return false;
-            }
-        }
         spotsy.add(ys);
+        return true;*/
+        if(board[xs][ys].isMine()||(xs==notx&&ys==noty)) {
+            return false;
+        }
         return true;
     }
 
@@ -95,22 +92,14 @@ public class MinesweeperGame {
         xs=(int)(Math.random()*board.length);
         ys=(int)(Math.random()*board[0].length);
         if(difficulty==0) {
-            for(int x=0;x<97;x++) {
+            for(int x=0;x<15;x++) {
                 while(!checkSpotIsGood(ys,xs)) {
                     xs=(int)(Math.random()*board.length);
                     ys=(int)(Math.random()*board[0].length);
                 }
 
-                if(xs!=notx||ys!=noty) {
-                    board[xs][ys].setMine(true);
-                }
-                else {
-                    x--;
-                }
 
-
-                xs=(int)(Math.random()*board.length);
-                ys=(int)(Math.random()*board[0].length);
+                board[xs][ys].setMine(true);
             }
 
             spotsx.clear();

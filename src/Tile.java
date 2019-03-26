@@ -9,6 +9,8 @@ public class Tile {
 
     boolean isMine=false;
 
+    boolean exploded=false;
+
     int minesAround;
 
     int status=1;
