@@ -10,6 +10,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     boolean clicked=false;
     int mouseRow=-1;
     int mouseCol=-1;
+    boolean rightPressed=false;
     boolean leftPressed=false;
     BufferedImage dead;
     boolean faceClicked=false;
@@ -135,7 +136,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                                         }
                                     }
                                 }
-                                leftPressed = false;
                             }
                             else {
                                 //System.out.println("HELLO");
@@ -147,6 +147,19 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                                     }
                                 }
                             }
+
+                            leftPressed = false;
+                        }
+                        else if(rightPressed) {
+                            System.out.println("RIGHT CLICKED");
+                            if (game.getBoard()[mouseRow][mouseCol].getStatus() == Tile.BLANK) {
+                                g.drawImage(unclicked, (mouseRow * 16) + 50, (mouseCol * 16) + 50, null);
+                            } else if (game.getBoard()[mouseRow][mouseCol].getStatus() == Tile.FLAGGED) {
+                                g.drawImage(flag, (mouseRow * 16) + 50, (mouseCol * 16) + 50, null);
+                            } else if (game.getBoard()[mouseRow][mouseCol].getStatus() == Tile.QUESTIONED) {
+                                g.drawImage(question, (mouseRow * 16) + 50, (mouseCol * 16) + 50, null);
+                            }
+                            rightPressed=false;
                         }
                         continue;
                     }
@@ -202,17 +215,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                         }
                         if(gameOver) {
                             break;
-                        }
-                    }
-                    else {
-                        if(true) {
-                            if (game.getBoard()[x][y].getStatus() == Tile.BLANK) {
-                                g.drawImage(unclicked, (x * 16) + 50, (y * 16) + 50, null);
-                            } else if (game.getBoard()[x][y].getStatus() == Tile.FLAGGED) {
-                                g.drawImage(flag, (x * 16) + 50, (y * 16) + 50, null);
-                            } else if (game.getBoard()[x][y].getStatus() == Tile.QUESTIONED) {
-                                g.drawImage(question, (x * 16) + 50, (y * 16) + 50, null);
-                            }
                         }
                     }
 
@@ -376,6 +378,10 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
             }
         }
         else if (e.getButton()==MouseEvent.BUTTON3) {
+            rightPressed=true;
+
+            mouseCol=(e.getY() - 50) / 16;
+            mouseRow=(e.getX() - 50) / 16;
             if(firstClicked&&!game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].isRevealed()) {
                 if(game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].getStatus()==game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].BLANK) {
                     game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].setStatus(game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].FLAGGED);
@@ -406,7 +412,9 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         if(e.getX()>=25&&e.getX()<=50&&e.getY()>=25&&e.getY()<=50) {
             faceClicked=true;
         }
-        leftPressed=true;
+        if(e.getButton()==MouseEvent.BUTTON1) {
+            leftPressed = true;
+        }
         mouseCol=(e.getY() - 50) / 16;
         mouseRow=(e.getX() - 50) / 16;
         repaint();
