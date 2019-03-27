@@ -128,11 +128,16 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                         if(leftPressed) {
                             if(game!=null) {
                                 System.out.println("I AM TRYIGN TO DRAW HERE - MOUSEROW:" + mouseRow + " mouseCol: " + mouseCol);
-                                g.drawImage(empty, (mouseRow * 16) + 50, (mouseCol * 16) + 50, null);
+
+                                if(mouseRow*16+50>=50&&mouseRow*16+50<game.getBoard().length*16+50&&mouseCol*16+50>=50&&mouseCol*16+50<game.getBoard().length*16+50) {
+                                    g.drawImage(empty, (mouseRow * 16) + 50, (mouseCol * 16) + 50, null);
+                                }
                                 for (int r = 0; r < game.getBoard().length; r++) {
                                     for (int c = 0; c < game.getBoard()[0].length; c++) {
                                         if (r != mouseRow || c != mouseCol) {
-                                            g.drawImage(unclicked, r * 16 + 50, c * 16 + 50, null);
+                                            if(r*16+50>=50&&r*16+50<game.getBoard().length*16+50&&c*16+50>=50&&c*16+50<game.getBoard().length*16+50) {
+                                                g.drawImage(unclicked, r * 16 + 50, c * 16 + 50, null);
+                                            }
                                         }
                                     }
                                 }
@@ -246,52 +251,77 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         }
     }
     public void emptyClicked(int x, int y) {
-        if(x>0&&game.getBoard()[x-1][y].getMinesAround()==0) {
-            if(!game.getBoard()[x-1][y].isRevealed()) {
+        if(x>0&&game.getBoard()[x-1][y].getMinesAround()>=0) {
+            if(!game.getBoard()[x-1][y].isRevealed()&&game.getBoard()[x-1][y].getMinesAround()==0) {
                 game.getBoard()[x-1][y].setRevealed(true);
                 emptyClicked(x-1,y);
             }
+            else {
+                game.getBoard()[x-1][y].setRevealed(true);
+            }
         }
-        if(x<game.getBoard().length-1&&game.getBoard()[x+1][y].getMinesAround()==0) {
-            if(!game.getBoard()[x+1][y].isRevealed()) {
+        if(x<game.getBoard().length-1&&game.getBoard()[x+1][y].getMinesAround()>=0) {
+            if(!game.getBoard()[x+1][y].isRevealed()&&game.getBoard()[x+1][y].getMinesAround()==0) {
                 game.getBoard()[x + 1][y].setRevealed(true);
                 emptyClicked(x+1,y);
             }
+            else {
+                game.getBoard()[x+1][y].setRevealed(true);
+            }
         }
-        if(y>0&&game.getBoard()[x][y-1].getMinesAround()==0) {
-            if(!game.getBoard()[x][y-1].isRevealed()) {
+        if(y>0&&game.getBoard()[x][y-1].getMinesAround()>=0) {
+            if(!game.getBoard()[x][y-1].isRevealed()&&game.getBoard()[x][y-1].getMinesAround()==0) {
                 game.getBoard()[x][y-1].setRevealed(true);
                 emptyClicked(x,y-1);
             }
+            else {
+
+                game.getBoard()[x][y-1].setRevealed(true);
+            }
         }
-        if(y<game.getBoard()[0].length-1&&game.getBoard()[x][y+1].getMinesAround()==0) {
-            if(!game.getBoard()[x][y+1].isRevealed()) {
+        if(y<game.getBoard()[0].length-1&&game.getBoard()[x][y+1].getMinesAround()>=0) {
+            if(!game.getBoard()[x][y+1].isRevealed()&&game.getBoard()[x][y+1].getMinesAround()==0) {
                 game.getBoard()[x][y+1].setRevealed(true);
                 emptyClicked(x,y+1);
             }
+            else {
+                game.getBoard()[x][y+1].setRevealed(true);
+            }
         }
-        if(x<game.getBoard().length-1&&y<game.getBoard()[0].length-1&&game.getBoard()[x+1][y+1].getMinesAround()==0) {
-            if(!game.getBoard()[x+1][y+1].isRevealed()) {
+        if(x<game.getBoard().length-1&&y<game.getBoard()[0].length-1&&game.getBoard()[x+1][y+1].getMinesAround()>=0) {
+            if(!game.getBoard()[x+1][y+1].isRevealed()&&game.getBoard()[x+1][y+1].getMinesAround()==0) {
                 game.getBoard()[x + 1][y+1].setRevealed(true);
                 emptyClicked(x+1,y+1);
             }
+            else {
+                game.getBoard()[x+1][y+1].setRevealed(true);
+            }
         }
-        if(x>0&&y<game.getBoard()[0].length-1&&game.getBoard()[x-1][y+1].getMinesAround()==0) {
-            if(!game.getBoard()[x-1][y+1].isRevealed()) {
+        if(x>0&&y<game.getBoard()[0].length-1&&game.getBoard()[x-1][y+1].getMinesAround()>=0) {
+            if(!game.getBoard()[x-1][y+1].isRevealed()&&game.getBoard()[x-1][y+1].getMinesAround()==0) {
                 game.getBoard()[x - 1][y+1].setRevealed(true);
                 emptyClicked(x-1,y+1);
             }
+            else {
+                game.getBoard()[x-1][y+1].setRevealed(true);
+            }
         }
-        if(x>0&&y>0&&game.getBoard()[x-1][y-1].getMinesAround()==0) {
-            if(!game.getBoard()[x-1][y-1].isRevealed()) {
+        if(x>0&&y>0&&game.getBoard()[x-1][y-1].getMinesAround()>=0) {
+            if(!game.getBoard()[x-1][y-1].isRevealed()&&game.getBoard()[x-1][y-1].getMinesAround()==0) {
                 game.getBoard()[x - 1][y-1].setRevealed(true);
                 emptyClicked(x-1,y-1);
             }
+            else {
+                game.getBoard()[x-1][y-1].setRevealed(true);
+            }
         }
-        if(x<game.getBoard().length-1&&y>0&&game.getBoard()[x+1][y-1].getMinesAround()==0) {
-            if(!game.getBoard()[x+1][y-1].isRevealed()) {
+        if(x<game.getBoard().length-1&&y>0&&game.getBoard()[x+1][y-1].getMinesAround()>=0) {
+            if(!game.getBoard()[x+1][y-1].isRevealed()&&game.getBoard()[x+1][y-1].getMinesAround()==0) {
                 game.getBoard()[x + 1][y-1].setRevealed(true);
                 emptyClicked(x+1,y-1);
+            }
+            else {
+                game.getBoard()[x+1][y-1].setRevealed(true);
             }
         }
         repaint();
@@ -373,8 +403,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                 if(game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].isMine) {
                     game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].exploded=true;
                 }
-            } else {
-
             }
         }
         else if (e.getButton()==MouseEvent.BUTTON3) {
@@ -412,9 +440,8 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         if(e.getX()>=25&&e.getX()<=50&&e.getY()>=25&&e.getY()<=50) {
             faceClicked=true;
         }
-        if(e.getButton()==MouseEvent.BUTTON1) {
-            leftPressed = true;
-        }
+        leftPressed = true;
+
         mouseCol=(e.getY() - 50) / 16;
         mouseRow=(e.getX() - 50) / 16;
         repaint();

@@ -14,6 +14,7 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
     public static final int MEDIUM=1;
     public static final int HARD=2;
 
+
     private long updatesDone=0;
     int playerWants=EASY;
     Thread thread=new Thread();
