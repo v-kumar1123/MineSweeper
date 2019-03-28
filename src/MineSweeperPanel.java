@@ -124,11 +124,11 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     public void paint(Graphics g) {
         graphics=g;
 
-        for(int r=0;r<blockNo;r++) {
+        /*for(int r=0;r<blockNo;r++) {
             for(int c=0;c<blockNo;c++) {
                 g.drawImage(unclicked,(r*16)+50,(c*16)+50,null);
             }
-        }
+        }*/
 
         if(!firstClicked) {
             g.setColor(Color.GRAY);
@@ -136,7 +136,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
             paintFirstBlocks(g,10);
         }
         else if(!gameOver) {
-            //System.out.println("GAME NOT OVER");
+            System.out.println("GAME NOT OVER");
             for(int x=0;x<game.getBoard().length;x++) {
                 for(int y=0;y<game.getBoard()[0].length;y++) {
                     if(!game.getBoard()[x][y].isRevealed()) {
@@ -231,7 +231,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                                 }
                             }
                             gameOver=true;
-                            return;
                         }
                         if(gameOver) {
                             break;
@@ -250,7 +249,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         }
         else if(gameOver) {
             if(faceClicked) {
-                gameOver=false;
                 faceClicked=false;
                 repaint();
                 return;
@@ -259,6 +257,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     }
 
     public void mineHasBeenClicked() {
+        System.out.println("mineClicked");
         for(int x=0;x<game.getBoard().length;x++) {
             for(int y=0;y<game.getBoard()[0].length;y++) {
                 if(game.getBoard()[x][y].isMine) {
@@ -268,6 +267,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         }
     }
     public void emptyClicked(int x, int y) {
+        System.out.println("emptyClicked");
         if(x>0&&game.getBoard()[x-1][y].getMinesAround()>=0) {
             if(!game.getBoard()[x-1][y].isRevealed()&&game.getBoard()[x-1][y].getMinesAround()==0) {
                 game.getBoard()[x-1][y].setRevealed(true);
@@ -413,11 +413,9 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     }
     @Override
     public void mouseReleased(MouseEvent e) {
+
         if(e.getButton()==MouseEvent.BUTTON1) {
-            System.out.println("bb");
-            leftPressed = false;
-        }
-        if(e.getButton()==MouseEvent.BUTTON1) {
+            leftPressed=false;
             if (!firstClicked) {
                 if(!faceClicked) {
                     game = new MinesweeperGame((e.getX() - 50) / 16, (e.getY() - 50) / 16);
