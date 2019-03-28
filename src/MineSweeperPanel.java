@@ -5,11 +5,12 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MineSweeperPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, Runnable {
     boolean clicked=false;
     public static final int UPS=3500;
-    int timer=2;
+    int timer=0;
     private long updatesDone=0;
     int mouseRow=-1;
     int mouseCol=-1;
@@ -65,7 +66,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
     public MineSweeperPanel(int blockNo) {
         this.blockNo=blockNo;
-
         try {
             dead = ImageIO.read((new File("Images\\Dead.png")));
             unclicked= ImageIO.read((new File("Images\\Unclicked.png")));
@@ -110,7 +110,9 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         addMouseMotionListener(this);
 
         addKeyListener(this);
-        t.start();
+
+        //t.start();
+
 
     }
 
@@ -121,6 +123,13 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
     public void paint(Graphics g) {
         graphics=g;
+
+        for(int r=0;r<blockNo;r++) {
+            for(int c=0;c<blockNo;c++) {
+                g.drawImage(unclicked,(r*16)+50,(c*16)+50,null);
+            }
+        }
+
         if(!firstClicked) {
             g.setColor(Color.GRAY);
             g.fillRect(0,0,getWidth(),getHeight());
@@ -136,14 +145,16 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                             if(game!=null) {
                                 System.out.println("I AM TRYIGN TO DRAW HERE - MOUSEROW:" + mouseRow + " mouseCol: " + mouseCol);
 
-                                if(mouseRow*16+50>=50&&mouseRow*16+50<game.getBoard().length*16+50&&mouseCol*16+50>=50&&mouseCol*16+50<game.getBoard().length*16+50) {
+                                if(mouseRow*16+50>=50&&mouseRow*16+50<game.getBoard().length*16+50&&mouseCol*16+50>=50&&mouseCol*16+50<game.getBoard().length*16+50&&!game.getBoard()[mouseRow][mouseCol].isRevealed()) {
                                     g.drawImage(empty, (mouseRow * 16) + 50, (mouseCol * 16) + 50, null);
                                 }
                                 for (int r = 0; r < game.getBoard().length; r++) {
                                     for (int c = 0; c < game.getBoard()[0].length; c++) {
                                         if (r != mouseRow || c != mouseCol) {
-                                            if(r*16+50>=50&&r*16+50<game.getBoard().length*16+50&&c*16+50>=50&&c*16+50<game.getBoard().length*16+50) {
-                                                g.drawImage(unclicked, r * 16 + 50, c * 16 + 50, null);
+                                            if(!game.getBoard()[r][c].isRevealed()) {
+                                                if (r * 16 + 50 >= 50 && r * 16 + 50 < game.getBoard().length * 16 + 50 && c * 16 + 50 >= 50 && c * 16 + 50 < game.getBoard().length * 16 + 50) {
+                                                    g.drawImage(unclicked, r * 16 + 50, c * 16 + 50, null);
+                                                }
                                             }
                                         }
                                     }
@@ -159,8 +170,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                                     }
                                 }
                             }
-
-                            leftPressed = false;
                         }
                         else if(rightPressed) {
                             System.out.println("RIGHT CLICKED");
@@ -171,7 +180,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                             } else if (game.getBoard()[mouseRow][mouseCol].getStatus() == Tile.QUESTIONED) {
                                 g.drawImage(question, (mouseRow * 16) + 50, (mouseCol * 16) + 50, null);
                             }
-                            rightPressed=false;
                         }
                         continue;
                     }
@@ -248,6 +256,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
             }
         }
     }
+
     public void mineHasBeenClicked() {
         for(int x=0;x<game.getBoard().length;x++) {
             for(int y=0;y<game.getBoard()[0].length;y++) {
@@ -346,6 +355,9 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
             }
         }
 
+        for(int x=0;x<numberConverter(timer).size();x++) {
+            g.drawImage(numberConverter(timer).get(x),100+13*x,0,null);
+        }
         g.drawImage(happy, 25, 25, null);
         if(faceClicked) {
             g.drawImage(happyDown, 25, 25, null);
@@ -393,11 +405,17 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if(e.getButton()==MouseEvent.BUTTON1) {
+            System.out.println("aaaa");
+            leftPressed = true;
+        }
     }
-
     @Override
     public void mouseReleased(MouseEvent e) {
+        if(e.getButton()==MouseEvent.BUTTON1) {
+            System.out.println("bb");
+            leftPressed = false;
+        }
         if(e.getButton()==MouseEvent.BUTTON1) {
             if (!firstClicked) {
                 if(!faceClicked) {
@@ -411,6 +429,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                     game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].exploded=true;
                 }
             }
+            leftPressed=false;
         }
         else if (e.getButton()==MouseEvent.BUTTON3) {
             rightPressed=true;
@@ -447,7 +466,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         if(e.getX()>=25&&e.getX()<=50&&e.getY()>=25&&e.getY()<=50) {
             faceClicked=true;
         }
-        leftPressed = true;
 
         mouseCol=(e.getY() - 50) / 16;
         mouseRow=(e.getX() - 50) / 16;
@@ -472,24 +490,63 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         }
     }
 
+    public ArrayList<BufferedImage> numberConverter(int numberConverter) {
+        String number="";
+        if(numberConverter<10) {
+            number="0"+numberConverter+"";
+        }
+        else {
+            number=numberConverter+"";
+        }
+        String finalNumber="";
+        for(int x=0;x<number.length();x++) {
+            finalNumber+=number.charAt(x)+" ";
+        }
+        ArrayList<BufferedImage> numberConvert=new ArrayList<BufferedImage>();
+        String[]numberConv=finalNumber.split(" ");
+
+        for(String s:numberConv) {
+            numberConvert.add(workForConverter(s));
+        }
+        return numberConvert;
+    }
+
+    public BufferedImage workForConverter(String s) {
+        if(Integer.parseInt(s)==0) {
+            return digitZero;
+        }
+        if(Integer.parseInt(s)==1) {
+            return digitOne;
+        }if(Integer.parseInt(s)==2) {
+            return digitTwo;
+        }if(Integer.parseInt(s)==3) {
+            return digitThree;
+        }if(Integer.parseInt(s)==4) {
+            return digitFour;
+        }if(Integer.parseInt(s)==5) {
+            return digitFive;
+        }if(Integer.parseInt(s)==6) {
+            return digitSix;
+        }if(Integer.parseInt(s)==7) {
+            return digitSeven;
+        }if(Integer.parseInt(s)==8) {
+            return digitEight;
+        }if(Integer.parseInt(s)==9) {
+            return digitNine;
+        }
+        return null;
+    }
+
     @Override
     public void run() {
         long startTime = System.nanoTime();
-        double sleepTime = 1000.0 / UPS;
+        int sleepTime = 1000;
         while (true) {
-            boolean didUpdate = false;
-            long updatesNeed = (long) (((System.nanoTime() - startTime) / 1000000) / sleepTime);
-            for (; updatesDone < updatesNeed; updatesDone++) {
-
-                didUpdate = true;
-            }
-            if (didUpdate) {
-                repaint();
-            }
+            timer++;
+            repaint();
             try {
-                Thread.sleep((int) sleepTime);
-            } catch (Exception e) {
-            }
+                Thread.sleep(sleepTime);
+            }catch (InterruptedException e) {e.printStackTrace();}
         }
     }
 }
