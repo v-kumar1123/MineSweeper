@@ -6,8 +6,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class MineSweeperPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener {
+public class MineSweeperPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, Runnable {
     boolean clicked=false;
+    public static final int UPS=3500;
+    int timer=2;
+    private long updatesDone=0;
     int mouseRow=-1;
     int mouseCol=-1;
     boolean rightPressed=false;
@@ -48,6 +51,8 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     BufferedImage mine;
     BufferedImage incorrectFlag;
     BufferedImage exploded;
+
+    Thread t=new Thread(this);
     MinesweeperGame game;
     boolean hovering=false;
     int emptyX;
@@ -71,6 +76,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
             digitHyphen=ImageIO.read(new File("Images\\Digit_Hyphen.png"));
             digitNine=ImageIO.read(new File("Images\\Digit_Nine.png"));
             digitOne=ImageIO.read(new File("Images\\Digit_One.png"));
+            digitTwo=ImageIO.read(new File("Images\\Digit_Two.png"));
             digitSeven=ImageIO.read(new File("Images\\Digit_Seven.png"));
             digitSix=ImageIO.read(new File("Images\\Digit_Six.png"));
             digitThree=ImageIO.read(new File("Images\\Digit_Three.png"));
@@ -104,6 +110,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         addMouseMotionListener(this);
 
         addKeyListener(this);
+        t.start();
 
     }
 
@@ -330,6 +337,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
 
     public void paintFirstBlocks(Graphics g, int difficulty) {
+        startTimer();
         g.setColor(Color.GRAY);
         g.fillRect(0,0,getWidth(),getHeight());
         for(int r=0;r<blockNo;r++) {
@@ -392,9 +400,8 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     public void mouseReleased(MouseEvent e) {
         if(e.getButton()==MouseEvent.BUTTON1) {
             if (!firstClicked) {
-                game = new MinesweeperGame((e.getX() - 50) / 16, (e.getY() - 50) / 16);
-                System.out.println("Not X: "+game.notx+" Not Y: "+game.noty);
                 if(!faceClicked) {
+                    game = new MinesweeperGame((e.getX() - 50) / 16, (e.getY() - 50) / 16);
                     game.getBoard()[(e.getX() - 50) / 16][(e.getY() - 50) / 16].setRevealed(true);
                 }
                 firstClicked = true;
@@ -452,6 +459,37 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
     }
 
-    //TODO 3/21: LOOOK AT TULLY'S DOCS, IMPLEMENT THEM INTO YOUR PROGRAM. DON'T FOLLOW HIS COMPLETELY, BUT HE HAS THINGS THAT YOU DONT KNOW YET..
+    public void startTimer() {
+        graphics.setColor(Color.CYAN);
 
+
+        graphics.drawImage(digitZero,100,0,null);
+
+        graphics.drawImage(digitTwo,123,0,null);
+        if(timer<10) {
+            if(timer==2) {
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        long startTime = System.nanoTime();
+        double sleepTime = 1000.0 / UPS;
+        while (true) {
+            boolean didUpdate = false;
+            long updatesNeed = (long) (((System.nanoTime() - startTime) / 1000000) / sleepTime);
+            for (; updatesDone < updatesNeed; updatesDone++) {
+
+                didUpdate = true;
+            }
+            if (didUpdate) {
+                repaint();
+            }
+            try {
+                Thread.sleep((int) sleepTime);
+            } catch (Exception e) {
+            }
+        }
+    }
 }
