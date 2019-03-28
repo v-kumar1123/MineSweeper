@@ -220,18 +220,18 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                             for(int r=0;r<game.getBoard().length;r++) {
                                 for(int c=0;c<game.getBoard()[0].length;c++) {
                                     if(game.getBoard()[r][c].exploded) {
-                                        //System.out.println("I HAVE EXPLODED THEEEEEE");
+                                        System.out.println("I HAVE EXPLODED THEEEEEE");
                                         g.drawImage(exploded,(r*16)+50,(c*16)+50,null);
+
                                     }
                                     else if(game.getBoard()[r][c].isMine) {
-                                       //System.out.println("I HAVE MINED THEEE");
+                                        System.out.println("I HAVE MINED THEEE");
                                         g.drawImage(mine,(r*16)+50,(c*16)+50,null);
                                     }
                                 }
                             }
                             gameOver=true;
-
-                            break;
+                            return;
                         }
                         if(gameOver) {
                             break;
@@ -251,8 +251,9 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         else if(gameOver) {
             if(faceClicked) {
                 gameOver=false;
-                repaint();
                 faceClicked=false;
+                repaint();
+                return;
             }
         }
     }
