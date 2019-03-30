@@ -19,6 +19,7 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
     int playerWants=EASY;
     Thread thread=new Thread();
     int noBlocksToPaint=0;
+    JMenuBar menuBar=new JMenuBar();
     MineSweeperPanel panel=new MineSweeperPanel(10);
 
 
@@ -29,7 +30,6 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
         if(playerWants==EASY) {
             noBlocksToPaint=10;
         }
-
         else if(playerWants==MEDIUM) {
             noBlocksToPaint=15;
         }
