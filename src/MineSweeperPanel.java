@@ -69,6 +69,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
     public MineSweeperPanel(int blockNo) {
         this.blockNo=blockNo;
+
         try {
             dead = ImageIO.read((new File("Images\\Dead.png")));
             unclicked= ImageIO.read((new File("Images\\Unclicked.png")));
@@ -130,8 +131,8 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         }*/
 
         if(!firstClicked) {
-            g.setColor(Color.GRAY);
-            g.fillRect(0,0,getWidth(),getHeight());
+            /*g.setColor(Color.GRAY);
+            g.fillRect(0,0,getWidth(),getHeight());*/
             paintFirstBlocks(g,10);
 
             if(faceClicked) {
@@ -381,8 +382,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
     public void paintFirstBlocks(Graphics g, int difficulty) {
         timer=0;
-        g.setColor(Color.GRAY);
-        g.fillRect(0,0,getWidth(),getHeight());
         for(int r=0;r<blockNo;r++) {
             for(int c=0;c<blockNo;c++) {
                 g.drawImage(unclicked,(r*16)+50,(c*16)+50,null);
@@ -460,7 +459,15 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                 System.out.println("I SHOULDN'T BE HERE");
                 if(!faceClicked&&e.getX()>50&&e.getY()>50&&e.getX()<blockNo*16+50&&e.getY()<blockNo*16+50) {
                     game = new MinesweeperGame((e.getX() - 50) / 16, (e.getY() - 50) / 16);
-
+                    if(blockNo==10) {
+                        game.setDifficulty(game.EASY);
+                    }
+                    else if(blockNo==15) {
+                        game.setDifficulty(game.MEDIUM);
+                    }
+                    else if(blockNo==20) {
+                        game.setDifficulty(game.HARD);
+                    }
                         for(int x=0;x<game.getBoard().length;x++) {
                             for(int y=0;y<game.getBoard()[0].length;y++) {
                                 if(game.getBoard()[x][y].isMine) {

@@ -20,6 +20,8 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
     Thread thread=new Thread();
     int noBlocksToPaint=0;
     JMenuBar menuBar=new JMenuBar();
+    JMenu file= new JMenu("File");
+    JMenu about=new JMenu("About");
     MineSweeperPanel panel=new MineSweeperPanel(10);
 
 
@@ -38,14 +40,26 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
         }
 
         super.setSize(280, 315);
-
         panel = new MineSweeperPanel(10);
         panel.setBounds(0,0,getWidth(),getHeight());
         add(panel);
 
         panel.addNotify();
         panel.requestFocus();
+        JMenu newGame=new JMenu("New Game");
 
+        newGame.add("Easy");
+        newGame.add("Medium");
+        newGame.add("Hard");
+        for(int x=0;x<newGame.getItemCount();x++) {
+            newGame.getItem(x).addActionListener((e) ->process(e));
+        }
+        file.add(newGame);
+        file.add("High Scores");
+        file.add("Exit");
+        for(int x=0;x<file.getItemCount();x++) {
+            file.getItem(x).addActionListener((e) ->process(e));
+        }
         Thread t=new Thread(this);
         t.start();
 
@@ -59,6 +73,15 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
         * TODO: how to draw the board in panel using paintFirstBlocks.
         *
         * */
+        menuBar.add(file);
+        menuBar.add(about);
+        menuBar.setVisible(true);
+
+        add(menuBar);
+
+        setJMenuBar(menuBar);
+
+
         setVisible(true);
     }
 
@@ -67,8 +90,13 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
     }
 
     public void process(ActionEvent e) {
-        if(e.getActionCommand().equals("HARD")){
+        if(e.getActionCommand().equals("Easy")){
+        }
 
+        else if(e.getActionCommand().equals("Medium")){
+        }
+
+        else if(e.getActionCommand().equals("Hard")){
         }
     }
 
