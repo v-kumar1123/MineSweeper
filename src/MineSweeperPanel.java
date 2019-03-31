@@ -123,7 +123,8 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
     public void paint(Graphics g) {
         graphics=g;
-
+        g.setColor(Color.GRAY);
+        g.fillRect(0,0,getWidth(),getHeight());
         /*for(int r=0;r<blockNo;r++) {
             for(int c=0;c<blockNo;c++) {
                 g.drawImage(unclicked,(r*16)+50,(c*16)+50,null);
@@ -131,8 +132,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         }*/
 
         if(!firstClicked) {
-            /*g.setColor(Color.GRAY);
-            g.fillRect(0,0,getWidth(),getHeight());*/
             paintFirstBlocks(g,10);
 
             if(faceClicked) {
@@ -143,6 +142,8 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         }
         else if(!gameOver) {
             System.out.println("GAME NOT OVER");
+            g.setColor(Color.GRAY);
+            g.fillRect(0,0,getWidth(),getHeight());
 
             if(faceClicked) {
                 System.out.println("OUCH MY FACE After Game");
@@ -162,6 +163,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                 for(int y=0;y<game.getBoard()[0].length;y++) {
                     if(!game.getBoard()[x][y].isRevealed()) {
                         //System.out.println("SPOT NOT REVEALED");
+                        g.drawImage(unclicked,x*16+50,y*16+50,null);
                         if(leftPressed) {
                             if(game!=null) {
                                 System.out.println("I AM TRYIGN TO DRAW HERE - MOUSEROW:" + mouseRow + " mouseCol: " + mouseCol);
