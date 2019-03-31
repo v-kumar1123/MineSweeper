@@ -77,8 +77,6 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
         menuBar.add(about);
         menuBar.setVisible(true);
 
-        add(menuBar);
-
         setJMenuBar(menuBar);
 
 
