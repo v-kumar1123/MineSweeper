@@ -88,6 +88,10 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
 
     public void process(ActionEvent e) {
         if(e.getActionCommand().equals("Easy")){
+            setSize(400,400);
+            panel=new MineSweeperPanel(20);
+            panel.paintFirstBlocks(getGraphics(),20);
+            add(panel);
         }
 
         else if(e.getActionCommand().equals("Medium")){

@@ -132,7 +132,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         }*/
 
         if(!firstClicked) {
-            paintFirstBlocks(g,10);
+            paintFirstBlocks(g,blockNo);
 
             if(faceClicked) {
                 System.out.println("OUCH MY FACE Before Game");
