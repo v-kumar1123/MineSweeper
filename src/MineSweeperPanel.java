@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class MineSweeperPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, Runnable {
@@ -33,12 +34,14 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     BufferedImage digitSeven;
     BufferedImage digitSix;
     BufferedImage digitFive;
+    PrintWriter writer;
     BufferedImage digitFour;
     BufferedImage digitThree;
     BufferedImage digitHyphen;
     BufferedImage digitTwo;
     BufferedImage digitOne;
     BufferedImage digitZero;
+    String s;
     BufferedImage eight;
     BufferedImage seven;
     BufferedImage six;
@@ -62,13 +65,39 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     int emptyX;
     int emptyY;
     int blockNo=10;
+    int tempNo=0;
 
     public void setBlockNo(int blockNo) {
-        this.blockNo = blockNo;
+        if(blockNo%5==0) {
+            this.blockNo = blockNo;
+        }
+        else if(blockNo==12) {
+            tempNo=blockNo;
+            this.blockNo=10;
+        }
+        else if(blockNo==13) {
+            tempNo=blockNo;
+            this.blockNo=10;
+        }
     }
 
     public MineSweeperPanel(int blockNo) {
-        this.blockNo=blockNo;
+        if(blockNo%5==0) {
+            this.blockNo = blockNo;
+        }
+        else if(blockNo==12) {
+            tempNo=blockNo;
+            this.blockNo=10;
+        }
+        else if(blockNo==13) {
+            tempNo=blockNo;
+            this.blockNo=10;
+        }
+
+
+        try {
+            writer=new PrintWriter(new File("C:\\Users\\varun\\Desktop\\MineSweeper\\src\\High Scores"));
+        }catch (Exception e ) {e.printStackTrace();}
 
         try {
             dead = ImageIO.read((new File("Images\\Dead.png")));
@@ -130,7 +159,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         }*/
 
         if(!firstClicked) {
-
             g.setColor(Color.GRAY);
             g.fillRect(0,0,getWidth(),getHeight());
             paintFirstBlocks(g,blockNo);
@@ -144,11 +172,11 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
             System.out.println("GAME NOT OVER");
             g.setColor(Color.GRAY);
             g.fillRect(0,0,getWidth(),getHeight());
-
             if(faceClicked) {
                 System.out.println("OUCH MY FACE After Game");
                 g.drawImage(happyDown,150,0,null);
             }
+
 
             for(int x=0;x<numberConverter(timer).size();x++) {
                 g.drawImage(numberConverter(timer).get(x),70+13*x,0,null);
@@ -219,6 +247,12 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
 
                         if (game.getBoard()[x][y].getStatus() == game.getBoard()[x][y].FLAGGED || game.getBoard()[x][y].getStatus() == game.getBoard()[x][y].QUESTIONED) {
+                            if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].FLAGGED) {
+                                g.drawImage(flag,x*16+50,y*16+50,null);
+                            }
+                            else if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].QUESTIONED) {
+                                g.drawImage(question,x*16+50,y*16+50,null);
+                            }
                             continue;
                         }
 
@@ -308,6 +342,10 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
             }
         }
         else if(gameOver) {
+            while(s==null) {
+                s = (String) JOptionPane.showInputDialog("What is your name?");
+            }
+
             if(faceClicked) {
                 gameOver=false;
                 faceClicked=false;
@@ -316,7 +354,9 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                 t.interrupt();
                 return;
             }
+            return;
         }
+        return;
     }
 
     public void mineHasBeenClicked(Graphics g) {
@@ -526,7 +566,13 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                 System.out.println("I SHOULDN'T BE HERE");
                 if(!faceClicked&&e.getX()>50&&e.getY()>50&&e.getX()<blockNo*16+50&&e.getY()<blockNo*16+50) {
                     game = new MinesweeperGame((e.getX() - 50) / 16, (e.getY() - 50) / 16);
-                    if(blockNo==10) {
+                    if(tempNo==12) {
+                        game.setDifficulty(game.INSANE);
+                    }
+                    else if(tempNo==13) {
+                        game.setDifficulty(game.EZPZ);
+                    }
+                    else if(blockNo==10) {
                         game.setDifficulty(game.EASY);
                     }
                     else if(blockNo==15) {
@@ -536,6 +582,10 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                         System.out.println("\t\t\t\t\t\t\tGAME IS NOW HAAARD");
                         game.setDifficulty(game.HARD);
                     }
+                    flagsLeft=game.getFlagCount();
+                    game.setNotx((e.getX() - 50) / 16);
+                    game.setNoty((e.getY() - 50) / 16);
+                    game.init();
                         for(int x=0;x<game.getBoard().length;x++) {
                             for(int y=0;y<game.getBoard()[0].length;y++) {
                                 if(game.getBoard()[x][y].isMine) {
@@ -623,6 +673,9 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
             }
             else if(numberConverter<100&&numberConverter>0) {
                 number="00"+numberConverter+"";
+            }
+            else if(numberConverter>=100) {
+                number="0"+numberConverter+"";
             }
             else if(numberConverter>-10) {
                 String tempNo=numberConverter+"";

@@ -16,6 +16,8 @@ public class MinesweeperGame {
     public static final int EASY=0;
     public static final int MEDIUM=1;
     public static final int HARD=2;
+    public static final int INSANE=3;
+    public static final int EZPZ=4;
     public static final int PLAYING=0;
     public static final int WON=1;
     public static final int LOST=3;
@@ -41,6 +43,13 @@ public class MinesweeperGame {
         }
         else if(difficulty==2) {
             board=new Tile[20][20];
+        }
+        else if(difficulty==INSANE) {
+            board=new Tile[10][10];
+        }
+
+        else if(difficulty==EZPZ) {
+            board=new Tile[10][10];
         }
 
         for(int x=0;x<board.length;x++) {
@@ -106,6 +115,35 @@ public class MinesweeperGame {
             spotsx.clear();
             spotsy.clear();
         }
+        else if(difficulty==INSANE) {
+            System.out.println("HELLO AGAIN OBIWAN");
+            for(int x=0;x<97;x++) {
+                while(!checkSpotIsGood(ys,xs)) {
+                    xs=(int)(Math.random()*board.length);
+                    ys=(int)(Math.random()*board[0].length);
+                }
+
+
+                board[xs][ys].setMine(true);
+            }
+
+            spotsx.clear();
+            spotsy.clear();
+        }
+        else if(difficulty==EZPZ) {
+            for(int x=0;x<5;x++) {
+                while(!checkSpotIsGood(ys,xs)) {
+                    xs=(int)(Math.random()*board.length);
+                    ys=(int)(Math.random()*board[0].length);
+                }
+
+
+                board[xs][ys].setMine(true);
+            }
+
+            spotsx.clear();
+            spotsy.clear();
+        }
         else if(difficulty==1) {
             for(int x=0;x<40;x++) {
                 while(!checkSpotIsGood(ys,xs)) {
@@ -134,6 +172,33 @@ public class MinesweeperGame {
             spotsx.clear();
             spotsy.clear();
         }
+    }
+
+    public void setNotx(int notx) {
+        this.notx = notx;
+    }
+
+    public void setNoty(int noty) {
+        this.noty = noty;
+    }
+
+    public int getFlagCount() {
+        if(difficulty==EZPZ) {
+            return 5;
+        }
+        if(difficulty==EASY) {
+            return 15;
+        }
+        if(difficulty==MEDIUM) {
+            return 40;
+        }
+        if(difficulty==HARD) {
+            return 100;
+        }
+        if(difficulty==INSANE) {
+            return 97;
+        }
+        return 0;
     }
     public void setTileValue(int x, int y) {
         if(x>0&&board[x-1][y].isMine()) {

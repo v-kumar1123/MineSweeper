@@ -3,9 +3,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 
@@ -13,7 +11,7 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
     public static final int EASY=0;
     public static final int MEDIUM=1;
     public static final int HARD=2;
-
+    PrintWriter writer;
 
     private long updatesDone=0;
     int playerWants=EASY;
@@ -29,6 +27,9 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
         super("k0904676, Period 2");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
+        try {
+            writer=new PrintWriter(new File("C:\\Users\\varun\\Desktop\\MineSweeper\\src\\High Scores"));
+        }catch (Exception e ) {e.printStackTrace();}
         if(playerWants==EASY) {
             noBlocksToPaint=10;
         }
@@ -48,9 +49,12 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
         panel.requestFocus();
         JMenu newGame=new JMenu("New Game");
 
+
+        newGame.add("EZPZ");
         newGame.add("Easy");
         newGame.add("Medium");
         newGame.add("Hard");
+        newGame.add("Insane");
         for(int x=0;x<newGame.getItemCount();x++) {
             newGame.getItem(x).addActionListener((e) ->process(e));
         }
@@ -88,18 +92,50 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
 
     public void process(ActionEvent e) {
         if(e.getActionCommand().equals("Easy")){
-            setSize(500,500);
+            setSize(300,350);
+            panel.setSize(getWidth(),getHeight());
+            panel.setBlockNo(10);
+            panel.paintFirstBlocks(getGraphics(),10);
+            panel.repaint();
+            add(panel);
+        }
+        else if(e.getActionCommand().equals("Insane")){
+            setSize(300,350);
+            panel.setSize(getWidth(),getHeight());
+            panel.setBlockNo(12);
+            panel.paintFirstBlocks(getGraphics(),10);
+            panel.repaint();
+            add(panel);
+        }
+
+        else if(e.getActionCommand().equals("EZPZ")){
+            setSize(300,350);
+            panel.setSize(getWidth(),getHeight());
+            panel.setBlockNo(13);
+            panel.paintFirstBlocks(getGraphics(),10);
+            panel.repaint();
+            add(panel);
+        }
+
+        else if(e.getActionCommand().equals("Medium")){
+            setSize(400,450);
+            panel.setSize(getWidth(),getHeight());
+            panel.setBlockNo(15);
+            panel.paintFirstBlocks(getGraphics(),15);
+            panel.repaint();
+            add(panel);
+        }
+
+        else if(e.getActionCommand().equals("Hard")){
+            setSize(500,550);
             panel.setSize(getWidth(),getHeight());
             panel.setBlockNo(20);
             panel.paintFirstBlocks(getGraphics(),20);
             panel.repaint();
             add(panel);
         }
-
-        else if(e.getActionCommand().equals("Medium")){
-        }
-
-        else if(e.getActionCommand().equals("Hard")){
+        if(e.getActionCommand().equals("Exit")) {
+            System.exit(0);
         }
     }
 
