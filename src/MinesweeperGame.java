@@ -10,6 +10,7 @@ public class MinesweeperGame {
 
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
+        init();
     }
 
     public static final int EASY=0;
