@@ -4,9 +4,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MineSweeperPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, Runnable {
     boolean clicked=false;
@@ -30,6 +32,11 @@ textArea.setEditable(false);*/
     JScrollPane scrollPane=new JScrollPane(textArea);
     Graphics graphics;
     boolean firstClicked=false;
+    ArrayList<HighScorer> easyScorers=new ArrayList<HighScorer>();
+    ArrayList<HighScorer> hardScorers=new ArrayList<HighScorer>();
+    ArrayList<HighScorer> mediumScorers=new ArrayList<HighScorer>();
+    ArrayList<HighScorer> insaneScorers=new ArrayList<HighScorer>();
+    ArrayList<HighScorer> EZPZScorers=new ArrayList<HighScorer>();
     BufferedImage oh;
     BufferedImage down;
     BufferedImage happy;
@@ -59,6 +66,7 @@ textArea.setEditable(false);*/
     BufferedImage empty;
     BufferedImage unclicked;
     BufferedImage flag;
+    boolean playerWon=false;
     BufferedImage question;
     BufferedImage mine;
     BufferedImage incorrectFlag;
@@ -139,7 +147,7 @@ textArea.setEditable(false);*/
 
 
         try {
-            writer=new PrintWriter(new File("C:\\Users\\OTHSCS097\\Desktop\\MineSweeper\\src\\High Scores"));
+            writer=new PrintWriter(new File("C:\\Users\\Varun\\Desktop\\MineSweeper\\src\\High Scores"));
         }catch (Exception e ) {e.printStackTrace();}
 
         try {
@@ -197,6 +205,27 @@ textArea.setEditable(false);*/
 
     public void paint(Graphics g) {
         graphics=g;
+        try {
+            Scanner reader = new Scanner((new File("C:\\Users\\Varun\\Desktop\\MineSweeper\\src\\High Scores")));
+            while (reader.hasNextLine()) {
+                String[] readerLine=reader.nextLine().split(" ");
+                if(!reader.nextLine().equals("")) {
+                    if (reader.nextLine().contains("EZPZ")) {
+                        EZPZScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "EZPZ"));
+                    } else if (reader.nextLine().contains("Hard")) {
+                        hardScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "Hard"));
+                    } else if (reader.nextLine().contains("Medium")) {
+                        mediumScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "Medium"));
+                    } else if (reader.nextLine().contains("Easy")) {
+                        easyScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "Easy"));
+                    } else if (reader.nextLine().contains("Insane")) {
+                        insaneScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "Insane"));
+                    }
+                }
+            }
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         /*for(int r=0;r<blockNo;r++) {
             for(int c=0;c<blockNo;c++) {
                 g.drawImage(unclicked,(r*16)+50,(c*16)+50,null);
@@ -225,14 +254,111 @@ textArea.setEditable(false);*/
                 System.out.println("OUCH MY FACE After Game");
                 g.drawImage(happyDown,150,0,null);
             }
+            int tempCount=0;
+            for(int x=0;x<game.getBoard().length;x++) {
+                for(int y=0;y<game.getBoard()[0].length;y++) {
+                    if(!game.getBoard()[x][y].isMine&&game.getBoard()[x][y].isRevealed()) {
+                        tempCount++;
+                    }
+                }
+            }
 
+            System.out.println("\t\t\t\t\t\t\t\t\t\tTEMP COUNT "+tempCount+" Mine Count "+game.getMineCount());
 
+            if((Math.pow((game.getBoard().length)+0.0,2.0)-tempCount)==game.getMineCount()) {
+                gameOver=true;
+                int tempTimer=timer;
+                System.out.println("\t\t\t\t\t\tI AM ASKING YOU A QUESTION SIRRRR");
+                String s = JOptionPane.showInputDialog("What is your name?");
+                String difficulty="";
+                if(game.difficulty==game.EASY) {
+                    difficulty="Easy";
+                }
+                else if(game.difficulty==game.EZPZ) {
+                    difficulty="EZPZ";
+                }
+                else if(game.difficulty==game.MEDIUM) {
+                    difficulty="MEDIUM";
+                }
+                else if(game.difficulty==game.HARD) {
+                    difficulty="HARD";
+                }
+                else if(game.difficulty==game.INSANE) {
+                    difficulty="INSANE";
+                }
+
+                mineCount=false;
+                System.out.println("YAY I WON!!!");
+
+                HighScorer tempScorer=new HighScorer(s,tempTimer,difficulty);
+
+                try {
+                    writer=new PrintWriter(new File("C:\\Users\\Varun\\Desktop\\MineSweeper\\src\\High Scores"));
+                    writer.print(tempScorer.toString());
+                    writer.close();
+                }catch(FileNotFoundException u) {
+                    u.printStackTrace();
+                }
+                System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\tHELLO ");
+                for(int x=0;x<game.getBoard().length;x++) {
+                    for (int y = 0; y < game.getBoard().length; y++) {
+                        if (game.getBoard()[x][y].isRevealed()) {
+                            if (game.getBoard()[x][y].getMinesAround() == 0) {
+                                g.drawImage(empty, (x * 16) + 50, (y * 16) + 50, null);
+                            }
+                            if (game.getBoard()[x][y].getMinesAround() == 1) {
+                                g.drawImage(one, (x * 16) + 50, (y * 16) + 50, null);
+                            }
+                            if (game.getBoard()[x][y].getMinesAround() == 2) {
+                                g.drawImage(two, (x * 16) + 50, (y * 16) + 50, null);
+                            }
+                            if (game.getBoard()[x][y].getMinesAround() == 3) {
+                                g.drawImage(three, (x * 16) + 50, (y * 16) + 50, null);
+                            }
+                            if (game.getBoard()[x][y].getMinesAround() == 4) {
+                                g.drawImage(four, (x * 16) + 50, (y * 16) + 50, null);
+                            }
+                            if (game.getBoard()[x][y].getMinesAround() == 5) {
+                                g.drawImage(five, (x * 16) + 50, (y * 16) + 50, null);
+                            }
+                            if (game.getBoard()[x][y].getMinesAround() == 6) {
+                                g.drawImage(six, (x * 16) + 50, (y * 16) + 50, null);
+                            }
+                            if (game.getBoard()[x][y].getMinesAround() == 7) {
+                                g.drawImage(seven, (x * 16) + 50, (y * 16) + 50, null);
+                            }
+                            if (game.getBoard()[x][y].getMinesAround() == 8) {
+                                g.drawImage(eight, (x * 16) + 50, (y * 16) + 50, null);
+                            }
+                        }
+                        else {
+                            if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].BLANK||game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].QUESTIONED) {
+                                g.drawImage(unclicked, (x * 16) + 50, (y * 16) + 50, null);
+                            }
+                            else if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].FLAGGED) {
+                                g.drawImage(flag, (x * 16) + 50, (y * 16) + 50, null);
+                            }
+                        }
+                    }
+                }
+                g.drawImage(shades,150,0,null);
+
+                for(int x=0;x<numberConverter(timer).size();x++) {
+                    g.drawImage(numberConverter(timer).get(x),70+13*x,0,null);
+                }
+                mineCount=true;
+                for(int x=0;x<numberConverter(flagsLeft).size();x++) {
+                    //System.out.println("ALLO ");
+                    g.drawImage(numberConverter(flagsLeft).get(x),10+13*x,0,null);
+                }
+                return;
+            }
             for(int x=0;x<numberConverter(timer).size();x++) {
                 g.drawImage(numberConverter(timer).get(x),70+13*x,0,null);
             }
             mineCount=true;
             for(int x=0;x<numberConverter(flagsLeft).size();x++) {
-                System.out.println("ALLO ");
+                //System.out.println("ALLO ");
                 g.drawImage(numberConverter(flagsLeft).get(x),10+13*x,0,null);
             }
             mineCount=false;
@@ -245,19 +371,19 @@ textArea.setEditable(false);*/
                             g.drawImage(unclicked, x * 16 + 50, y * 16 + 50, null);
                         } else {
                             if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].FLAGGED) {
-                                System.out.println("\t\t\t\t\t\t HELLO WORLD IA M BACCCKKk");
+                                //System.out.println("\t\t\t\t\t\t HELLO WORLD IA M BACCCKKk");
                                 g.drawImage(flag,x*16+50,y*16+50,null);
                             }
                             else if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].QUESTIONED) {
 
-                                System.out.println("\t\t\t\t\t\t HELLO WORLD IA M BACCCKKk??? AMI ??");
+                                ///System.out.println("\t\t\t\t\t\t HELLO WORLD IA M BACCCKKk??? AMI ??");
                                 g.drawImage(question,x*16+50,y*16+50,null);
                             }
                             //continue;
                         }
                         if (leftPressed) {
                             if (game != null) {
-                                System.out.println("I AM TRYIGN TO DRAW HERE - MOUSEROW:" + mouseRow + " mouseCol: " + mouseCol);
+                                //System.out.println("I AM TRYIGN TO DRAW HERE - MOUSEROW:" + mouseRow + " mouseCol: " + mouseCol);
 
                                 if (mouseRow * 16 + 50 >= 50 && mouseRow * 16 + 50 < game.getBoard().length * 16 + 50 && mouseCol * 16 + 50 >= 50 && mouseCol * 16 + 50 < game.getBoard().length * 16 + 50 && !game.getBoard()[mouseRow][mouseCol].isRevealed()) {
                                     g.drawImage(empty, (mouseRow * 16) + 50, (mouseCol * 16) + 50, null);
@@ -285,7 +411,7 @@ textArea.setEditable(false);*/
                                 }
                             }
                         } else if (rightPressed) {
-                            System.out.println("RIGHT CLICKED");
+                            //System.out.println("RIGHT CLICKED");
                             if (!game.getBoard()[mouseRow][mouseCol].isRevealed()) {
                                 if (game.getBoard()[mouseRow][mouseCol].getStatus() == Tile.BLANK) {
                                     g.drawImage(unclicked, (mouseRow * 16) + 50, (mouseCol * 16) + 50, null);
@@ -305,7 +431,7 @@ textArea.setEditable(false);*/
 
 
                         if (game.getBoard()[x][y].getStatus() == game.getBoard()[x][y].FLAGGED || game.getBoard()[x][y].getStatus() == game.getBoard()[x][y].QUESTIONED) {
-                            System.out.println("\t\t\t\t\t\t\tAh. I CAN SEe THER erjk welshfj ");
+                            //System.out.println("\t\t\t\t\t\t\tAh. I CAN SEe THER erjk welshfj ");
                         }
 
                         else if(game.getBoard()[x][y].isMine) {
@@ -314,7 +440,7 @@ textArea.setEditable(false);*/
                             for (int r = 0; r < game.getBoard().length; r++) {
                                 for (int c = 0; c < game.getBoard()[0].length; c++) {
                                     if (game.getBoard()[r][c].exploded) {
-                                        System.out.println("I HAVE EXPLODED THEEEEEE");
+                                        ///System.out.println("I HAVE EXPLODED THEEEEEE");
                                         g.drawImage(exploded, (r * 16) + 50, (c * 16) + 50, null);
                                     }
                                     /*else if(game.getBoard()[r][c].isMine) {
@@ -403,8 +529,6 @@ textArea.setEditable(false);*/
                 return;
             }
             else {
-                System.out.println("\t\t\t\t\t\tI AM ASKING YOU A QUESTION SIRRRR");
-                String s=JOptionPane.showInputDialog("What is your name?");
             }
             gameOver=false;
             return;
@@ -420,7 +544,7 @@ textArea.setEditable(false);*/
                 g.drawImage(unclicked,x*16+50,y*16+50,null);
             }
         }
-        System.out.println("mineClicked");
+        //System.out.println("mineClicked");
         for(int x=0;x<blockNo;x++) {
             for (int y = 0; y < blockNo; y++) {
                 if (game.getBoard()[x][y].isMine) {
@@ -460,7 +584,7 @@ textArea.setEditable(false);*/
         }
     }
     public void emptyClicked(int x, int y) {
-        System.out.println("emptyClicked");
+        //System.out.println("emptyClicked");
         if(x>0&&game.getBoard()[x-1][y].getMinesAround()>=0) {
             if(!game.getBoard()[x-1][y].isRevealed()&&game.getBoard()[x-1][y].getMinesAround()==0) {
                 game.getBoard()[x-1][y].setRevealed(true);

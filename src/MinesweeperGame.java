@@ -12,7 +12,7 @@ public class MinesweeperGame {
         this.difficulty = difficulty;
         init();
     }
-
+    int mineCount=0;
     public static final int EASY=0;
     public static final int MEDIUM=1;
     public static final int HARD=2;
@@ -33,23 +33,31 @@ public class MinesweeperGame {
         init();
     }
 
+    public int getMineCount() {
+        return mineCount;
+    }
+
     public void init() {
         if(difficulty==0) {
             board=new Tile[10][10];
+            mineCount=15;
         }
         else if(difficulty==1) {
-
             board=new Tile[15][15];
+            mineCount=40;
         }
         else if(difficulty==2) {
             board=new Tile[20][20];
+            mineCount=100;
         }
         else if(difficulty==INSANE) {
             board=new Tile[10][10];
+            mineCount=97;
         }
 
         else if(difficulty==EZPZ) {
             board=new Tile[10][10];
+            mineCount=5;
         }
 
         for(int x=0;x<board.length;x++) {
