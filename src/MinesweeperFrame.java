@@ -21,7 +21,7 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
     int noBlocksToPaint=0;
     JMenuBar menuBar=new JMenuBar();
     JMenu file= new JMenu("File");
-    JMenu about=new JMenu("About");
+    JMenu about=new JMenu("Help");
     MineSweeperPanel panel=new MineSweeperPanel(10);
 
 
@@ -58,7 +58,7 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
         newGame.add("Hard");
         newGame.add("Insane");
         about.add("Rules");
-        about.add("Help");
+        about.add("About");
         for(int x=0;x<newGame.getItemCount();x++) {
             newGame.getItem(x).addActionListener((e) ->process(e));
         }
@@ -142,34 +142,13 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
             add(panel);
         }
         else if(e.getActionCommand().equals("Rules")) {
-            JTextArea textArea=new JTextArea("Game Modes:\n" +
-                    "  -Easy 10 by 10 with 15 mines\n" +
-                    "  -Medium 15 by 15 with 40 mines\n" +
-                    "  -Hard 20 by 20 with 100 mines\n" +
-                    "Rules:\n" +
-                    "  -Winning:\n" +
-                    "    *You win when all the non-mine squares have been revealed.\n" +
-                    "  -Losing:\n" +
-                    "    *You lose when you reveal a mine.\n" +
-                    "  -Controls:\n" +
-                    "    *Right clicking an un-revealed square cycles the following marks:\n" +
-                    "      -Flag - Denotes the square as a mine\n" +
-                    "      -Question - Denotes the square as unknown\n" +
-                    "      -Un-marked - Removes all markings\n" +
-                    "    *Left clicking\n" +
-                    "      -Reveals the clicked square\n" +
-                    "    *Pressing the left button down, then holding the right button down and releasing the left button.\n" +
-                    "      -Works on revealed numbers\n" +
-                    "      -Reveals the nighboring locations\n" +
-                    "      -Only functions when there are enough locations marked with flags to correspond to the numbers\n" +
-                    "Symbols:\n" +
-                    "  -1 to 8: number of mines near by\n" +
-                    "  -Mine: unfound mine\n" +
-                    "  -Mine with x: Incorrect Flag\n" +
-                    "  -Red Mine: Exploded mine\n");
-            add(textArea);
-            textArea.setVisible(true);
+
+            panel.setRulesAsked(true);
             System.out.println("\t\t\t\t\t\t\t\t\tHELO");
+        }
+
+        else if(e.getActionCommand().equals("About")) {
+            JOptionPane.showMessageDialog(null, "MINESWEEPER CREATED BY ME, VARUN K");
         }
         if(e.getActionCommand().equals("Exit")) {
             System.exit(0);

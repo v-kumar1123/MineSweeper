@@ -22,6 +22,12 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     boolean faceClicked=false;
     boolean gameOver=false;
     boolean mineCount=false;
+/*
+    textArea = new JTextArea(5, 20);
+    JScrollPane scrollPane = new JScrollPane(textArea);
+textArea.setEditable(false);*/
+    JTextArea textArea=new JTextArea(500,500);
+    JScrollPane scrollPane=new JScrollPane(textArea);
     Graphics graphics;
     boolean firstClicked=false;
     BufferedImage oh;
@@ -59,8 +65,10 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     BufferedImage exploded;
     int mines=15;
     Thread t=new Thread(this);
+    JScrollPane areaScrollPane;
     MinesweeperGame game;
     int flagsLeft=15;
+    String rules="";
     boolean hovering=false;
     int emptyX;
     int emptyY;
@@ -82,6 +90,41 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     }
 
     public MineSweeperPanel(int blockNo) {
+        rules=("Game Modes:\n" +
+                "  -Easy 10 by 10 with 15 mines\n" +
+                "  -Medium 15 by 15 with 40 mines\n" +
+                "  -Hard 20 by 20 with 100 mines\n" +
+                "Rules:\n" +
+                "  -Winning:\n" +
+                "    *You win when all the non-mine squares have been revealed.\n" +
+                "  -Losing:\n" +
+                "    *You lose when you reveal a mine.\n" +
+                "  -Controls:\n" +
+                "    *Right clicking an un-revealed square cycles the following marks:\n" +
+                "      -Flag - Denotes the square as a mine\n" +
+                "      -Question - Denotes the square as unknown\n" +
+                "      -Un-marked - Removes all markings\n" +
+                "    *Left clicking\n" +
+                "      -Reveals the clicked square\n" +
+                "    *Pressing the left button down, then holding the right button down and releasing the left button.\n" +
+                "      -Works on revealed numbers\n" +
+                "      -Reveals the nighboring locations\n" +
+                "      -Only functions when there are enough locations marked with flags to correspond to the numbers\n" +
+                "Symbols:\n" +
+                "  -1 to 8: number of mines near by\n" +
+                "  -Mine: unfound mine\n" +
+                "  -Mine with x: Incorrect Flag\n" +
+                "  -Red Mine: Exploded mine\n");
+
+
+        textArea.setFont(new Font("Serif", Font.ITALIC, 16));
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+
+        areaScrollPane = new JScrollPane(textArea);
+        areaScrollPane.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        areaScrollPane.setPreferredSize(new Dimension(250, 250));
         if(blockNo%5==0) {
             this.blockNo = blockNo;
         }
@@ -146,9 +189,11 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     }
 
 
+    boolean rulesAsked=false;
 
-
-
+    public void setRulesAsked(boolean rulesAsked) {
+        this.rulesAsked = rulesAsked;
+    }
 
     public void paint(Graphics g) {
         graphics=g;
@@ -157,6 +202,10 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                 g.drawImage(unclicked,(r*16)+50,(c*16)+50,null);
             }
         }*/
+
+        if(rulesAsked) {
+            JOptionPane.showMessageDialog(null,rules);
+        }
 
         if(!firstClicked) {
             g.setColor(Color.GRAY);
@@ -195,7 +244,16 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
                             g.drawImage(unclicked, x * 16 + 50, y * 16 + 50, null);
                         } else {
-                            System.out.println("BOI I AM SCAREED");
+                            if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].FLAGGED) {
+                                System.out.println("\t\t\t\t\t\t HELLO WORLD IA M BACCCKKk");
+                                g.drawImage(flag,x*16+50,y*16+50,null);
+                            }
+                            else if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].QUESTIONED) {
+
+                                System.out.println("\t\t\t\t\t\t HELLO WORLD IA M BACCCKKk??? AMI ??");
+                                g.drawImage(question,x*16+50,y*16+50,null);
+                            }
+                            //continue;
                         }
                         if (leftPressed) {
                             if (game != null) {
@@ -247,13 +305,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
 
                         if (game.getBoard()[x][y].getStatus() == game.getBoard()[x][y].FLAGGED || game.getBoard()[x][y].getStatus() == game.getBoard()[x][y].QUESTIONED) {
-                            if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].FLAGGED) {
-                                g.drawImage(flag,x*16+50,y*16+50,null);
-                            }
-                            else if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].QUESTIONED) {
-                                g.drawImage(question,x*16+50,y*16+50,null);
-                            }
-                            continue;
+                            System.out.println("\t\t\t\t\t\t\tAh. I CAN SEe THER erjk welshfj ");
                         }
 
                         else if(game.getBoard()[x][y].isMine) {
@@ -264,7 +316,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                                     if (game.getBoard()[r][c].exploded) {
                                         System.out.println("I HAVE EXPLODED THEEEEEE");
                                         g.drawImage(exploded, (r * 16) + 50, (c * 16) + 50, null);
-
                                     }
                                     /*else if(game.getBoard()[r][c].isMine) {
                                         System.out.println("I HAVE MINED THEEE");
@@ -344,13 +395,18 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
         else if(gameOver) {
 
             if(faceClicked) {
-                gameOver=false;
+                g.drawImage(happyDown,150,0,null);
                 faceClicked=false;
-                game.init();
+                gameOver=false;
                 paintFirstBlocks(g,blockNo);
                 t.interrupt();
                 return;
             }
+            else {
+                System.out.println("\t\t\t\t\t\tI AM ASKING YOU A QUESTION SIRRRR");
+                String s=JOptionPane.showInputDialog("What is your name?");
+            }
+            gameOver=false;
             return;
         }
         return;
@@ -485,6 +541,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
 
     public void paintFirstBlocks(Graphics g, int difficulty) {
+        g.drawImage(happy,150,0,null);
         timer=0;
         for(int r=0;r<blockNo;r++) {
             for(int c=0;c<blockNo;c++) {
@@ -501,16 +558,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
             g.drawImage(numberConverter(flagsLeft).get(y),10+13*y,0,null);
         }
         mineCount=false;
-
-
-        if(!faceClicked) {
-            g.drawImage(happy, 150, 0, null);
-        }
-        else {
-            g.drawImage(happyDown, 150, 0, null);
-
-        }
-
+        g.drawImage(happy,150,0,null);
         for (int r = 0; r < blockNo; r++) {
             for (int c = 0; c < blockNo; c++) {
                 if (mouseCol!=-1&&mouseRow!=-1&&r == mouseRow && c == mouseCol) {
@@ -565,9 +613,164 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
                 repaint();
             }
         }
+        if(e.getButton()==MouseEvent.BUTTON2) {
+            int tempRow=(e.getX()-50)/16;
+            int tempCol=(e.getY()-50)/16;
+
+            if(game.getBoard()[tempRow][tempCol].isRevealed()) {
+                if(checkFlagCountSameAsMinesAround(game.getBoard()[tempRow][tempCol].minesAround,tempRow,tempCol)) {
+                    massDraw(tempRow,tempCol);
+                }
+            }
+        }
+    }
+    public void massDraw(int x, int y) {
+        if(x>0&&game.getBoard()[x-1][y].getMinesAround()>=0) {
+            if(!game.getBoard()[x-1][y].isRevealed()&&game.getBoard()[x-1][y].getStatus()==2) {
+                getGraphics().drawImage(empty,(x-1)*16+50,y*16+50,null);
+            }
+        }
+        if(x<game.getBoard().length-1&&game.getBoard()[x+1][y].getMinesAround()>=0) {
+            if(!game.getBoard()[x+1][y].isRevealed()&&game.getBoard()[x+1][y].getStatus()==2) {
+                getGraphics().drawImage(empty,(x+1)*16+50,y*16+50,null);
+            }
+        }
+        if(y>0&&game.getBoard()[x][y-1].getMinesAround()>=0) {
+            if(!game.getBoard()[x][y-1].isRevealed()&&game.getBoard()[x][y-1].getStatus()==2) {
+                getGraphics().drawImage(empty,(x)*16+50,(y-1)*16+50,null);
+            }
+        }
+        if(y<game.getBoard()[0].length-1&&game.getBoard()[x][y+1].getMinesAround()>=0) {
+            if(!game.getBoard()[x][y+1].isRevealed()&&game.getBoard()[x][y+1].getStatus()==2) {
+                getGraphics().drawImage(empty,(x)*16+50,(y+1)*16+50,null);
+            }
+        }
+        if(x<game.getBoard().length-1&&y<game.getBoard()[0].length-1&&game.getBoard()[x+1][y+1].getMinesAround()>=0) {
+            if(!game.getBoard()[x+1][y+1].isRevealed()&&game.getBoard()[x+1][y+1].getStatus()==2) {
+                getGraphics().drawImage(empty,(x+1)*16+50,(y+1)*16+50,null);
+            }
+        }
+        if(x>0&&y<game.getBoard()[0].length-1&&game.getBoard()[x-1][y+1].getMinesAround()>=0) {
+            if(!game.getBoard()[x-1][y+1].isRevealed()&&game.getBoard()[x-1][y+1].getStatus()==2) {
+                getGraphics().drawImage(empty,(x-1)*16+50,(y+1)*16+50,null);
+            }
+        }
+        if(x>0&&y>0&&game.getBoard()[x-1][y-1].getMinesAround()>=0) {
+            if(!game.getBoard()[x-1][y-1].isRevealed()&&game.getBoard()[x-1][y-1].getStatus()==2) {
+                getGraphics().drawImage(empty,(x-1)*16+50,(y-1)*16+50,null);
+            }
+        }
+        if(x<game.getBoard().length-1&&y>0&&game.getBoard()[x+1][y-1].getMinesAround()>=0) {
+            if(!game.getBoard()[x+1][y-1].isRevealed()&&game.getBoard()[x+1][y-1].getStatus()==2) {
+                getGraphics().drawImage(empty,(x+1)*16+50,(y-1)*16+50,null);
+            }
+        }
+    }
+    public boolean checkFlagCountSameAsMinesAround(int minesAround,int x,int y) {
+        int tempCount=0;
+
+        if(x>0&&game.getBoard()[x-1][y].getMinesAround()>=0) {
+            if(!game.getBoard()[x-1][y].isRevealed()&&game.getBoard()[x-1][y].getStatus()==2) {
+                tempCount++;
+            }
+        }
+        if(x<game.getBoard().length-1&&game.getBoard()[x+1][y].getMinesAround()>=0) {
+            if(!game.getBoard()[x+1][y].isRevealed()&&game.getBoard()[x+1][y].getStatus()==2) {
+                tempCount++;
+            }
+        }
+        if(y>0&&game.getBoard()[x][y-1].getMinesAround()>=0) {
+            if(!game.getBoard()[x][y-1].isRevealed()&&game.getBoard()[x][y-1].getStatus()==2) {
+                tempCount++;
+            }
+        }
+        if(y<game.getBoard()[0].length-1&&game.getBoard()[x][y+1].getMinesAround()>=0) {
+            if(!game.getBoard()[x][y+1].isRevealed()&&game.getBoard()[x][y+1].getStatus()==2) {
+                tempCount++;
+            }
+        }
+        if(x<game.getBoard().length-1&&y<game.getBoard()[0].length-1&&game.getBoard()[x+1][y+1].getMinesAround()>=0) {
+            if(!game.getBoard()[x+1][y+1].isRevealed()&&game.getBoard()[x+1][y+1].getStatus()==2) {
+                tempCount++;
+            }
+        }
+        if(x>0&&y<game.getBoard()[0].length-1&&game.getBoard()[x-1][y+1].getMinesAround()>=0) {
+            if(!game.getBoard()[x-1][y+1].isRevealed()&&game.getBoard()[x-1][y+1].getStatus()==2) {
+                tempCount++;
+            }
+        }
+        if(x>0&&y>0&&game.getBoard()[x-1][y-1].getMinesAround()>=0) {
+            if(!game.getBoard()[x-1][y-1].isRevealed()&&game.getBoard()[x-1][y-1].getStatus()==2) {
+                tempCount++;
+            }
+        }
+        if(x<game.getBoard().length-1&&y>0&&game.getBoard()[x+1][y-1].getMinesAround()>=0) {
+            if(!game.getBoard()[x+1][y-1].isRevealed()&&game.getBoard()[x+1][y-1].getStatus()==2) {
+                tempCount++;
+            }
+        }
+        if(tempCount==minesAround) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    public void massReveal(int x, int y) {
+        if(x>0&&game.getBoard()[x-1][y].getMinesAround()>=0) {
+            if(!game.getBoard()[x-1][y].isRevealed()&&game.getBoard()[x-1][y].getStatus()==2) {
+                game.getBoard()[x-1][y].setRevealed(true);game.getBoard()[x-1][y].setStatus(1);
+            }
+        }
+        if(x<game.getBoard().length-1&&game.getBoard()[x+1][y].getMinesAround()>=0) {
+            if(!game.getBoard()[x+1][y].isRevealed()&&game.getBoard()[x+1][y].getStatus()==2) {
+                game.getBoard()[x+1][y].setRevealed(true);game.getBoard()[x+1][y].setStatus(1);
+            }
+        }
+        if(y>0&&game.getBoard()[x][y-1].getMinesAround()>=0) {
+            if(!game.getBoard()[x][y-1].isRevealed()&&game.getBoard()[x][y-1].getStatus()==2) {
+                game.getBoard()[x][y-1].setRevealed(true);game.getBoard()[x][y-1].setStatus(1);
+            }
+        }
+        if(y<game.getBoard()[0].length-1&&game.getBoard()[x][y+1].getMinesAround()>=0) {
+            if(!game.getBoard()[x][y+1].isRevealed()&&game.getBoard()[x][y+1].getStatus()==2) {
+                game.getBoard()[x][y+1].setRevealed(true);game.getBoard()[x][y+1].setStatus(1);
+            }
+        }
+        if(x<game.getBoard().length-1&&y<game.getBoard()[0].length-1&&game.getBoard()[x+1][y+1].getMinesAround()>=0) {
+            if(!game.getBoard()[x+1][y+1].isRevealed()&&game.getBoard()[x+1][y+1].getStatus()==2) {
+                game.getBoard()[x+1][y+1].setRevealed(true);game.getBoard()[x+1][y+1].setStatus(1);
+            }
+        }
+        if(x>0&&y<game.getBoard()[0].length-1&&game.getBoard()[x-1][y+1].getMinesAround()>=0) {
+            if(!game.getBoard()[x-1][y+1].isRevealed()&&game.getBoard()[x-1][y+1].getStatus()==2) {
+                game.getBoard()[x-1][y+1].setRevealed(true);game.getBoard()[x-1][y+1].setStatus(1);
+            }
+        }
+        if(x>0&&y>0&&game.getBoard()[x-1][y-1].getMinesAround()>=0) {
+            if(!game.getBoard()[x-1][y-1].isRevealed()&&game.getBoard()[x-1][y-1].getStatus()==2) {
+                game.getBoard()[x-1][y-1].setRevealed(true); game.getBoard()[x-1][y-1].setStatus(1);
+            }
+        }
+        if(x<game.getBoard().length-1&&y>0&&game.getBoard()[x+1][y-1].getMinesAround()>=0) {
+            if(!game.getBoard()[x+1][y-1].isRevealed()&&game.getBoard()[x+1][y-1].getStatus()==2) {
+                game.getBoard()[x+1][y-1].setRevealed(true); game.getBoard()[x+1][y-1].setStatus(1);
+            }
+        }
     }
     @Override
     public void mouseReleased(MouseEvent e) {
+        if(e.getButton()==MouseEvent.BUTTON2) {
+            int tempRow=(e.getX()-50)/16;
+            int tempCol=(e.getY()-50)/16;
+
+            if(game.getBoard()[tempRow][tempCol].isRevealed()) {
+                if(checkFlagCountSameAsMinesAround(game.getBoard()[tempRow][tempCol].minesAround,tempRow,tempCol)) {
+                    massReveal(tempRow,tempCol);
+                    repaint();
+                }
+            }
+        }
 
         if(e.getButton()==MouseEvent.BUTTON1) {
             leftPressed=false;
@@ -771,7 +974,9 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
             int sleepTime = 1000;
             while (true) {
                 timer++;
-                repaint();
+                if(!gameOver) {
+                    repaint();
+                }
                 try {
                     Thread.sleep(sleepTime);
                 } catch (InterruptedException e) {
