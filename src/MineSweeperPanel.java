@@ -96,7 +96,7 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
 
 
         try {
-            writer=new PrintWriter(new File("C:\\Users\\varun\\Desktop\\MineSweeper\\src\\High Scores"));
+            writer=new PrintWriter(new File("C:\\Users\\OTHSCS097\\Desktop\\MineSweeper\\src\\High Scores"));
         }catch (Exception e ) {e.printStackTrace();}
 
         try {
@@ -342,9 +342,6 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
             }
         }
         else if(gameOver) {
-            while(s==null) {
-                s = (String) JOptionPane.showInputDialog("What is your name?");
-            }
 
             if(faceClicked) {
                 gameOver=false;
@@ -533,6 +530,18 @@ public class MineSweeperPanel extends JPanel implements MouseListener, KeyListen
     @Override
     public void keyPressed(KeyEvent e) {
 
+        if(e.getKeyChar()=='g') {
+            int mineCount = 0;
+            for (int x = 0; x < game.getBoard().length; x++) {
+                for (int y = 0; y < game.getBoard()[0].length; y++) {
+                    if (game.getBoard()[x][y].isMine()) {
+                        mineCount++;
+                    }
+                }
+            }
+
+            System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\tHELLO. I HAVE " + mineCount + " MINES!!!");
+        }
     }
 
     @Override
