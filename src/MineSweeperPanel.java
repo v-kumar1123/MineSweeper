@@ -565,6 +565,9 @@ textArea.setEditable(false);*/
         //System.out.println("mineClicked");
         for(int x=0;x<blockNo;x++) {
             for (int y = 0; y < blockNo; y++) {
+                if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].FLAGGED&&!game.getBoard()[x][y].isMine) {
+                    g.drawImage(incorrectFlag,x*16+50,y*16+50,null);
+                }
                 if (game.getBoard()[x][y].isMine) {
                     game.getBoard()[x][y].setRevealed(true);
                     g.drawImage(mine,x*16+50,y*16+50,null);
