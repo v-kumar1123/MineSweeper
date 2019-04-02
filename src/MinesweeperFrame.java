@@ -150,6 +150,19 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
         else if(e.getActionCommand().equals("About")) {
             JOptionPane.showMessageDialog(null, "MINESWEEPER CREATED BY ME, VARUN K");
         }
+        else if(e.getActionCommand().equals("High Scores")) {
+            String message="";
+            Collections.sort(panel.getEZPZScorers());
+            Collections.sort(panel.getMediumScorers());
+            Collections.sort(panel.getHardScorers());
+            Collections.sort(panel.getEasyScorers());
+            message+="EZPZ Top Scores\n";
+            for(int x=0;x<panel.getEZPZScorers().size();x++) {
+                System.out.println("I AM GOING TROUGH");
+                message+=x+1+". "+panel.getEZPZScorers().get(x).getName()+", "+panel.getEZPZScorers().get(x).getScore()+"\n";
+            }
+            JOptionPane.showMessageDialog(null, message);
+        }
         if(e.getActionCommand().equals("Exit")) {
             System.exit(0);
         }

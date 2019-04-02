@@ -78,7 +78,7 @@ textArea.setEditable(false);*/
     String rules="";
     boolean hovering=false;
     int emptyX;
-    File file = new File("C:\\Users\\Varun\\Desktop\\MineSweeper\\src\\High Scores");
+    File file = new File("C:\\Users\\Varun\\Desktop\\MineSweeper\\src\\Scores");
     int emptyY;
     int blockNo=10;
     int tempNo=0;
@@ -198,6 +198,26 @@ textArea.setEditable(false);*/
         this.rulesAsked = rulesAsked;
     }
 
+    public ArrayList<HighScorer> getEasyScorers() {
+        return easyScorers;
+    }
+
+    public ArrayList<HighScorer> getHardScorers() {
+        return hardScorers;
+    }
+
+    public ArrayList<HighScorer> getMediumScorers() {
+        return mediumScorers;
+    }
+
+    public ArrayList<HighScorer> getInsaneScorers() {
+        return insaneScorers;
+    }
+
+    public ArrayList<HighScorer> getEZPZScorers() {
+        return EZPZScorers;
+    }
+
     public void paint(Graphics g) {
         graphics=g;
         /*for(int r=0;r<blockNo;r++) {
@@ -267,7 +287,6 @@ textArea.setEditable(false);*/
                 HighScorer tempScorer=new HighScorer(s,tempTimer,difficulty);
 
                 try {
-                    File file=new File("C:\\Users\\varun\\Desktop\\MineSweeper\\src\\Scores");
                     FileWriter FileWriter =(new FileWriter(file,true));
                     BufferedWriter writer=new BufferedWriter(FileWriter);
                     /*for(HighScorer h:easyScorers) {
@@ -285,7 +304,7 @@ textArea.setEditable(false);*/
                     for(HighScorer h:mediumScorers) {
                         writer.println(h);
                     }*/
-                    writer.write(tempScorer.toString());
+                    writer.write(tempScorer.toString()+"\n");
                     writer.close();
                 } catch (FileNotFoundException u) {
                     u.printStackTrace();
@@ -1102,8 +1121,8 @@ textArea.setEditable(false);*/
                 }
                 else {
                     try {
-                        EZPZScorers.clear();
-                        /*hardScorers.clear();
+                        /*EZPZScorers.clear();
+                        hardScorers.clear();
                         mediumScorers.clear();
                         easyScorers.clear();
                         insaneScorers.clear();*/
