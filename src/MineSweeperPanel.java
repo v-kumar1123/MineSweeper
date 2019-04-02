@@ -1,3 +1,5 @@
+import com.sun.org.apache.xml.internal.resolver.readers.ExtendedXMLCatalogReader;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -79,6 +81,7 @@ textArea.setEditable(false);*/
     String rules="";
     boolean hovering=false;
     int emptyX;
+    File file = new File("C:\\Users\\Varun\\Desktop\\MineSweeper\\src\\High Scores");
     int emptyY;
     int blockNo=10;
     int tempNo=0;
@@ -208,17 +211,18 @@ textArea.setEditable(false);*/
         try {
             Scanner reader = new Scanner((new File("C:\\Users\\Varun\\Desktop\\MineSweeper\\src\\High Scores")));
             while (reader.hasNextLine()) {
-                String[] readerLine=reader.nextLine().split(" ");
-                if(!reader.nextLine().equals("")) {
-                    if (reader.nextLine().contains("EZPZ")) {
+                String line=reader.nextLine();
+                String[] readerLine=line.split(" ");
+                if(!line.equals("")) {
+                    if (line.contains("EZPZ")) {
                         EZPZScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "EZPZ"));
-                    } else if (reader.nextLine().contains("Hard")) {
+                    } else if (line.contains("Hard")) {
                         hardScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "Hard"));
-                    } else if (reader.nextLine().contains("Medium")) {
+                    } else if (line.contains("Medium")) {
                         mediumScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "Medium"));
-                    } else if (reader.nextLine().contains("Easy")) {
+                    } else if (line.contains("Easy")) {
                         easyScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "Easy"));
-                    } else if (reader.nextLine().contains("Insane")) {
+                    } else if (line.contains("Insane")) {
                         insaneScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "Insane"));
                     }
                 }
@@ -293,10 +297,25 @@ textArea.setEditable(false);*/
                 HighScorer tempScorer=new HighScorer(s,tempTimer,difficulty);
 
                 try {
-                    writer=new PrintWriter(new File("C:\\Users\\Varun\\Desktop\\MineSweeper\\src\\High Scores"));
-                    writer.print(tempScorer.toString());
+                    PrintWriter writer = new PrintWriter(file);
+                    for(HighScorer h:easyScorers) {
+                        writer.println(h);
+                    }
+                    for(HighScorer h:EZPZScorers) {
+                        writer.println(h);
+                    }
+                    for(HighScorer h:hardScorers) {
+                        writer.println(h);
+                    }
+                    for(HighScorer h:insaneScorers) {
+                        writer.println(h);
+                    }
+                    for(HighScorer h:mediumScorers) {
+                        writer.println(h);
+                    }
+                    writer.println(tempScorer.toString());
                     writer.close();
-                }catch(FileNotFoundException u) {
+                } catch (FileNotFoundException u) {
                     u.printStackTrace();
                 }
                 System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\tHELLO ");
@@ -350,6 +369,13 @@ textArea.setEditable(false);*/
                 for(int x=0;x<numberConverter(flagsLeft).size();x++) {
                     //System.out.println("ALLO ");
                     g.drawImage(numberConverter(flagsLeft).get(x),10+13*x,0,null);
+                }
+                if(faceClicked) {
+                    g.drawImage(happyDown,150,0,null);
+                    faceClicked=false;
+                    gameOver=false;
+                    paintFirstBlocks(g,blockNo);
+                    return;
                 }
                 return;
             }
@@ -525,7 +551,6 @@ textArea.setEditable(false);*/
                 faceClicked=false;
                 gameOver=false;
                 paintFirstBlocks(g,blockNo);
-                t.interrupt();
                 return;
             }
             else {
@@ -1100,6 +1125,45 @@ textArea.setEditable(false);*/
                 timer++;
                 if(!gameOver) {
                     repaint();
+                }
+                else {
+                    try {
+                        /*EZPZScorers.clear();
+                        hardScorers.clear();
+                        mediumScorers.clear();
+                        easyScorers.clear();
+                        insaneScorers.clear();*/
+                        Scanner reader = new Scanner(file);
+                        while (reader.hasNextLine()) {
+                            boolean b=false;
+                            String line=reader.nextLine();
+                            String[] readerLine = line.split(" ");
+                            for(HighScorer h:EZPZScorers) {
+                                if(h.getScore()==Integer.parseInt(readerLine[0])&&h.getName().equals(readerLine[2])&&h.getDifficulty().equals("EZPZ")) {
+                                    b=true;
+                                }
+                            }
+                            if(b) {
+                                continue;
+                            }
+                            if (line!= null) {
+                                if (line.contains("EZPZ")) {
+                                    EZPZScorers.add(new HighScorer(readerLine[2], Integer.parseInt(readerLine[0]), "EZPZ"));
+                                } else if (line.contains("Hard")) {
+                                    hardScorers.add(new HighScorer(readerLine[2], Integer.parseInt(readerLine[0]), "Hard"));
+                                } else if (line.contains("Medium")) {
+                                    mediumScorers.add(new HighScorer(readerLine[2], Integer.parseInt(readerLine[0]), "Medium"));
+                                } else if (line.contains("Easy")) {
+                                    easyScorers.add(new HighScorer(readerLine[2], Integer.parseInt(readerLine[0]), "Easy"));
+                                } else if (line.contains("Insane")) {
+                                    insaneScorers.add(new HighScorer(readerLine[2], Integer.parseInt(readerLine[0]), "Insane"));
+                                }
+                            }
+                        }
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(EZPZScorers);
                 }
                 try {
                     Thread.sleep(sleepTime);

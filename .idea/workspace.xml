@@ -4,8 +4,7 @@
     <list default="true" id="558c7bf5-7b3b-4fbc-8a9a-54427f808ccd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/MineSweeperPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/MineSweeperPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MineSweeper/MinesweeperGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MineSweeper/MinesweeperGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HighScorer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HighScorer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/High Scores" beforeDir="false" afterPath="$PROJECT_DIR$/src/High Scores" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MineSweeperPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MineSweeperPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MinesweeperGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinesweeperGame.java" afterDir="false" />
     </list>
@@ -18,6 +17,28 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/MineSweeper$MainFile.ic" NAME="MainFile Coverage Results" MODIFIED="1553656650516" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/../RoliPokeDex/src/RoliPokeDex.java">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="176">
+                    <caret line="388" column="27" selection-start-line="388" selection-start-column="20" selection-end-line="388" selection-end-column="27" />
+                    <folding>
+                      <element signature="imports" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -44,7 +65,11 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/High Scores">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="48">
+              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -64,8 +89,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MineSweeperPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="818">
-              <caret line="227" column="9" lean-forward="true" selection-start-line="227" selection-start-column="9" selection-end-line="227" selection-end-column="9" />
+            <state relative-caret-position="501">
+              <caret line="315" column="56" selection-start-line="315" selection-start-column="56" selection-end-line="315" selection-end-column="56" />
               <folding>
                 <element signature="e#1049#1061#0" expanded="true" />
                 <element signature="e#1121#1133#0" expanded="true" />
@@ -103,9 +128,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MinesweeperGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="35" column="31" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
+            <state relative-caret-position="384">
+              <caret line="59" column="23" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="23" />
               <folding>
+                <element signature="e#853#854#0" expanded="true" />
                 <element signature="e#885#886#0" expanded="true" />
                 <element signature="e#4468#4469#0" expanded="true" />
                 <element signature="e#4500#4501#0" expanded="true" />
@@ -140,10 +166,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>GAME IS N</find>
-      <find>exc</find>
-      <find>y</find>
-      <find>emptyClicked</find>
       <find>thxee</find>
       <find>setDif</find>
       <find>setBlock</find>
@@ -170,6 +192,10 @@
       <find>YAY</find>
       <find>C:</find>
       <find>Hello</find>
+      <find>reader.nextLine()</find>
+      <find>writer</find>
+      <find>writer.p</find>
+      <find>run()</find>
     </findStrings>
     <replaceStrings>
       <replace>firstClicked</replace>
@@ -182,6 +208,7 @@
       <replace>getStatus()==2</replace>
       <replace>game.getBoard[x][y].setRevealed(true);</replace>
       <replace>game.getBoard()[x][y].setRevealed(true);</replace>
+      <replace>line</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -196,8 +223,8 @@
         <option value="$PROJECT_DIR$/src/MinesweeperFrame.java" />
         <option value="$PROJECT_DIR$/src/HighScorer.java" />
         <option value="$PROJECT_DIR$/src/MinesweeperGame.java" />
-        <option value="$PROJECT_DIR$/src/High Scores" />
         <option value="$PROJECT_DIR$/src/MineSweeperPanel.java" />
+        <option value="$PROJECT_DIR$/src/High Scores" />
       </list>
     </option>
   </component>
@@ -221,7 +248,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/othscs097/Desktop/MineSweeper/src/MineSweeperPanel.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554162903409" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554165090428" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../RoliPokeDex" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -440,7 +467,14 @@
       <option name="project" value="LOCAL" />
       <updated>1554157880624</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Coolio">
+      <created>1554162966090</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1554162966090</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -531,7 +565,8 @@
     <MESSAGE value="Mine reveals everything around it and now i am confused" />
     <MESSAGE value="nvm we good" />
     <MESSAGE value="3/5 Completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="3/5 Completed" />
+    <MESSAGE value="Coolio" />
+    <option name="LAST_COMMIT_MESSAGE" value="Coolio" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_15Puzzle.zip/15Puzzle/src/Board.java" />
@@ -540,16 +575,6 @@
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_15Puzzle.zip/15Puzzle/src/Piece.java" />
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_15Puzzle.zip/15Puzzle/src/SoundClipTest.java" />
     <entry file="file://$USER_HOME$/Downloads/DungeonFrame.java" />
-    <entry file="file://$PROJECT_DIR$/src/MainFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="e#105#106#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Tile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
@@ -557,20 +582,6 @@
           <folding>
             <element signature="e#1018#1019#0" expanded="true" />
             <element signature="e#1047#1048#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MinesweeperGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="35" column="31" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
-          <folding>
-            <element signature="e#885#886#0" expanded="true" />
-            <element signature="e#4468#4469#0" expanded="true" />
-            <element signature="e#4500#4501#0" expanded="true" />
-            <element signature="e#4537#4538#0" expanded="true" />
-            <element signature="e#4569#4570#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -601,6 +612,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/MinesweeperGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="59" column="23" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="23" />
+          <folding>
+            <element signature="e#853#854#0" expanded="true" />
+            <element signature="e#885#886#0" expanded="true" />
+            <element signature="e#4468#4469#0" expanded="true" />
+            <element signature="e#4500#4501#0" expanded="true" />
+            <element signature="e#4537#4538#0" expanded="true" />
+            <element signature="e#4569#4570#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MainFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+          <folding>
+            <element signature="e#105#106#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../RoliPokeDex/src/RoliPokeDex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="388" column="27" selection-start-line="388" selection-start-column="20" selection-end-line="388" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/High Scores">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/VerticalMenuBar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
@@ -613,13 +666,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/High Scores">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MineSweeperPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="818">
-          <caret line="227" column="9" lean-forward="true" selection-start-line="227" selection-start-column="9" selection-end-line="227" selection-end-column="9" />
+        <state relative-caret-position="501">
+          <caret line="315" column="56" selection-start-line="315" selection-start-column="56" selection-end-line="315" selection-end-column="56" />
           <folding>
             <element signature="e#1049#1061#0" expanded="true" />
             <element signature="e#1121#1133#0" expanded="true" />

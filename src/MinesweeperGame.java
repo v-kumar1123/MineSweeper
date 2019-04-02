@@ -57,7 +57,7 @@ public class MinesweeperGame {
 
         else if(difficulty==EZPZ) {
             board=new Tile[10][10];
-            mineCount=5;
+            mineCount=1;
         }
 
         for(int x=0;x<board.length;x++) {
@@ -139,7 +139,7 @@ public class MinesweeperGame {
             spotsy.clear();
         }
         else if(difficulty==EZPZ) {
-            for(int x=0;x<5;x++) {
+            for(int x=0;x<1;x++) {
                 while(!checkSpotIsGood(ys,xs)) {
                     xs=(int)(Math.random()*board.length);
                     ys=(int)(Math.random()*board[0].length);
