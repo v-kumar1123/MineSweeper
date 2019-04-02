@@ -303,8 +303,9 @@ textArea.setEditable(false);*/
                     }
                     for(HighScorer h:mediumScorers) {
                         writer.println(h);
+                        writer.println(h);
                     }*/
-                    writer.write(tempScorer.toString()+"\n");
+                    writer.write(""+tempScorer.toString()+"\n");
                     writer.close();
                 } catch (FileNotFoundException u) {
                     u.printStackTrace();
@@ -344,12 +345,7 @@ textArea.setEditable(false);*/
                             }
                         }
                         else {
-                            if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].BLANK||game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].QUESTIONED) {
-                                g.drawImage(unclicked, (x * 16) + 50, (y * 16) + 50, null);
-                            }
-                            else if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].FLAGGED) {
-                                g.drawImage(flag, (x * 16) + 50, (y * 16) + 50, null);
-                            }
+                            g.drawImage(flag, (x * 16) + 50, (y * 16) + 50, null);
                         }
                     }
                 }
@@ -1132,7 +1128,7 @@ textArea.setEditable(false);*/
                 if(!gameOver) {
                     repaint();
                 }
-                else {
+                if(true) {
                     try {
                         /*EZPZScorers.clear();
                         hardScorers.clear();
