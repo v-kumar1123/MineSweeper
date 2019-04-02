@@ -156,6 +156,26 @@ public class MinesweeperFrame extends JFrame implements Runnable, KeyListener {
             Collections.sort(panel.getMediumScorers());
             Collections.sort(panel.getHardScorers());
             Collections.sort(panel.getEasyScorers());
+            if(panel.getEZPZScorers().size()>5) {
+                for(int x=4;x<panel.getEZPZScorers().size();x++) {
+                    panel.getEZPZScorers().remove(x);
+                }
+            }
+            if(panel.getMediumScorers().size()>5) {
+                for(int x=4;x<panel.getMediumScorers().size();x++) {
+                    panel.getMediumScorers().remove(x);
+                }
+            }
+            if(panel.getHardScorers().size()>5) {
+                for(int x=4;x<panel.getHardScorers().size();x++) {
+                    panel.getHardScorers().remove(x);
+                }
+            }
+            if(panel.getEasyScorers().size()>5) {
+                for(int x=4;x<panel.getEasyScorers().size();x++) {
+                    panel.getEasyScorers().remove(x);
+                }
+            }
             message+="EZPZ Top Scores\n";
             for(int x=0;x<panel.getEZPZScorers().size();x++) {
                 System.out.println("I AM GOING TROUGH");
