@@ -534,6 +534,13 @@ textArea.setEditable(false);*/
                             g.drawImage(eight, (x * 16) + 50, (y * 16) + 50, null);
                         }
                     }
+                    if(gameOver) {
+                        break;
+                    }
+                }
+
+                if(gameOver) {
+                    break;
                 }
             }
         }
@@ -568,7 +575,10 @@ textArea.setEditable(false);*/
                 if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].FLAGGED&&!game.getBoard()[x][y].isMine) {
                     g.drawImage(incorrectFlag,x*16+50,y*16+50,null);
                 }
-                if (game.getBoard()[x][y].isMine) {
+                if(game.getBoard()[x][y].getStatus()==game.getBoard()[x][y].FLAGGED&&game.getBoard()[x][y].isMine) {
+                    g.drawImage(flag,x*16+50,y*16+50,null);
+                }
+                else if (game.getBoard()[x][y].isMine) {
                     game.getBoard()[x][y].setRevealed(true);
                     g.drawImage(mine,x*16+50,y*16+50,null);
                 }
