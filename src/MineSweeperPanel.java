@@ -5,10 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -148,11 +145,6 @@ textArea.setEditable(false);*/
             this.blockNo=10;
         }
 
-
-        try {
-            writer=new PrintWriter(new File("C:\\Users\\Varun\\Desktop\\MineSweeper\\src\\High Scores"));
-        }catch (Exception e ) {e.printStackTrace();}
-
         try {
             dead = ImageIO.read((new File("Images\\Dead.png")));
             unclicked= ImageIO.read((new File("Images\\Unclicked.png")));
@@ -208,28 +200,6 @@ textArea.setEditable(false);*/
 
     public void paint(Graphics g) {
         graphics=g;
-        try {
-            Scanner reader = new Scanner((new File("C:\\Users\\Varun\\Desktop\\MineSweeper\\src\\High Scores")));
-            while (reader.hasNextLine()) {
-                String line=reader.nextLine();
-                String[] readerLine=line.split(" ");
-                if(!line.equals("")) {
-                    if (line.contains("EZPZ")) {
-                        EZPZScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "EZPZ"));
-                    } else if (line.contains("Hard")) {
-                        hardScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "Hard"));
-                    } else if (line.contains("Medium")) {
-                        mediumScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "Medium"));
-                    } else if (line.contains("Easy")) {
-                        easyScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "Easy"));
-                    } else if (line.contains("Insane")) {
-                        insaneScorers.add(new HighScorer(readerLine[1], Integer.parseInt(readerLine[0]), "Insane"));
-                    }
-                }
-            }
-        }catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
         /*for(int r=0;r<blockNo;r++) {
             for(int c=0;c<blockNo;c++) {
                 g.drawImage(unclicked,(r*16)+50,(c*16)+50,null);
@@ -297,8 +267,10 @@ textArea.setEditable(false);*/
                 HighScorer tempScorer=new HighScorer(s,tempTimer,difficulty);
 
                 try {
-                    PrintWriter writer = new PrintWriter(file);
-                    for(HighScorer h:easyScorers) {
+                    File file=new File("C:\\Users\\varun\\Desktop\\MineSweeper\\src\\Scores");
+                    FileWriter FileWriter =(new FileWriter(file,true));
+                    BufferedWriter writer=new BufferedWriter(FileWriter);
+                    /*for(HighScorer h:easyScorers) {
                         writer.println(h);
                     }
                     for(HighScorer h:EZPZScorers) {
@@ -312,11 +284,13 @@ textArea.setEditable(false);*/
                     }
                     for(HighScorer h:mediumScorers) {
                         writer.println(h);
-                    }
-                    writer.println(tempScorer.toString());
+                    }*/
+                    writer.write(tempScorer.toString());
                     writer.close();
                 } catch (FileNotFoundException u) {
                     u.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\tHELLO ");
                 for(int x=0;x<game.getBoard().length;x++) {
@@ -1128,8 +1102,8 @@ textArea.setEditable(false);*/
                 }
                 else {
                     try {
-                        /*EZPZScorers.clear();
-                        hardScorers.clear();
+                        EZPZScorers.clear();
+                        /*hardScorers.clear();
                         mediumScorers.clear();
                         easyScorers.clear();
                         insaneScorers.clear();*/
